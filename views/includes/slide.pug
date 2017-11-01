@@ -1,0 +1,38 @@
+.top
+    // 이미지 슬라이드
+    .carousel.slide.carousel-fade(data-ride='carousel', data-interval='3000', data-pause='hover')
+        .carousel-inner.col-sm-12
+            .carousel-item.active
+                img.d-block.w-100(src='images/slide1.jpg', alt='First slide')
+            |
+            .carousel-item
+                img.d-block.w-100(src='images/slide2.jpg', alt='Second slide')
+            |
+            .carousel-item
+                img.d-block.w-100(src='images/slide3.jpg', alt='Third slide')
+        // 이미지 앞 텍스트
+        .col-xs-12.col-sm-12.textBox
+            p.findYourNextExperience Find your next experience
+            // 검색엔진
+            nav.navbar.navbarSearch
+                form.form-inline
+                    input.form-control.searchInput(type='text', placeholder='Search events or categories', aria-label='Search')
+                    |
+                    input.form-control.search(type='text', placeholder='City or location', value='Seoul, Republic of Korea', onfocus="this.value=''; return true")
+                    |
+                    select.form-control.search
+                        option(selected='', hidden='') All Dates
+                        |
+                        option Today
+                        |
+                        option Tomorrow
+                        |
+                        option This Week
+                        |
+                        option This Weekend
+                        |
+                        option Next Week
+                        |
+                        option Next Weekend
+                    |
+                    button.btn.btn-info.my-2.my-sm-0.search.searchBtn(type='submit') Search
