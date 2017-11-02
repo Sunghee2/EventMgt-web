@@ -1,79 +1,68 @@
 // 메뉴 부분
 nav.navbar.navbar-expand-lg.navbar-light.bg-white
-    a.navbar-brand.logo(href='hw4.html') Sunghee
-    |
+    a.navbar-brand.logo(href='../') Sunghee
     button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
         span.navbar-toggler-icon
-    |
     #navbarSupportedContent.collapse.navbar-collapse.col-md-7.ml-auto
         ul.navbar-nav.mr-auto
             li.nav-item.active
                 a.nav-link(href='')
                     | BROWSE EVENTS
                     span.sr-only (current)
-            |
-            li.nav-item.dropdown
-                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                    | LEARN MORE
-                |
-                .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                    a.dropdown-item(href='#') Blog
-                    |
-                    a.dropdown-item(href='#') Resources
-                    |
-                    a.dropdown-item(href='#') Fees
-                    |
-                    a.dropdown-item(href='#') How it works
-                    |
-                    a.dropdown-item(href='#') Features
-                    |
-                    a.dropdown-item(href='#') Music Ticketing
-            |
             li.nav-item.dropdown
                 a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                     | HELP
-                |
                 .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                     a.dropdown-item(href='#') Where are my tickets?
                     |
                     a.dropdown-item(href='#') How to contact the event organizer
                     |
                     a.dropdown-item(href='#') Help Center
-            |
+            if(!currentUser)
+              li.nav-item.active
+                  a.nav-link(href='', data-toggle='modal', data-target='#exampleModal') SIGN IN
+                  // Modal
+                  #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                          .modal-content
+                              .modal-header
+                                  h3#exampleModalLabel.modal-title Please Sign In
+                                  |
+                                  button.close(type='button', data-dismiss='modal', aria-label='Close')
+                                      span(aria-hidden='true') ×
+                              |
+                              .modal-body
+                                  form
+                                      .form-group
+                                          label(for='exampleInputEmail1') Email address
+                                          |
+                                          input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
+                                          |
+                                          small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+                                      |
+                                      .form-group
+                                          label(for='exampleInputPassword1') Password
+                                          |
+                                          input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+                                      |
+                                      button.btn.btn-primary(type='submit') LOGIN
+                              |
+                              .modal-footer
+                                  a(href=`/users/new`, data-toggle='modal', data-target='#createAccount') Create account
+                                  |                     or
+                                  a(href='', data-toggle='modal', data-target='#resetPassword') reset password
+                  //include users/new.pug
+                  include ../users/reset_password.pug
+            else 
+              li.nav-item.dropdown
+                  a.nav-link.dropdown-toggle(href=`/users/${currentUser._id}`, data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                      | My Profile
+                  .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                      a.dropdown-item(href='#') Where are my tickets?
+                      |
+                      a.dropdown-item(href='#') Account Settings
+                      |
+                      a.dropdown-item(href='#') Log out
             li.nav-item.active
-                a.nav-link(href='', data-toggle='modal', data-target='#exampleModal') SIGN IN
-                // Modal
-                #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
-                    .modal-dialog(role='document')
-                        .modal-content
-                            .modal-header
-                                h3#exampleModalLabel.modal-title Please Sign In
-                                |
-                                button.close(type='button', data-dismiss='modal', aria-label='Close')
-                                    span(aria-hidden='true') ×
-                            |
-                            .modal-body
-                                form
-                                    .form-group
-                                        label(for='exampleInputEmail1') Email address
-                                        |
-                                        input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
-                                        |
-                                        small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
-                                    |
-                                    .form-group
-                                        label(for='exampleInputPassword1') Password
-                                        |
-                                        input#exampleInputPassword1.form-control(type='password', placeholder='Password')
-                                    |
-                                    button.btn.btn-primary(type='submit') LOGIN
-                            |
-                            .modal-footer
-                                a(href='/users/new', data-toggle='modal', data-target='#createAccount') Create account
-                                |                     or
-                                a(href='', data-toggle='modal', data-target='#resetPassword') reset password
-                //include users/new.pug
-                include ../users/reset_password.pug
-            li.nav-item.active
-                a.nav-link(href='create_event.html')
+                a.nav-link(href='/events/new')
                     span CREATE EVENT

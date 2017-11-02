@@ -39,12 +39,14 @@ app.use(cookieParser());
 // _method를 통해서 method를 변경할 수 있도록 함. PUT이나 DELETE를 사용할 수 있도록.
 app.use(methodOverride('_method', {methods: ['POST', 'GET']}));
 
+
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: true, // true = .sass and false = .scss
+  indentedSyntax: false, // true = .sass and false = .scss
   sourceMap: true
 }));
+
 // session을 사용할 수 있도록.
 app.use(session({
   resave: true,
@@ -67,7 +69,7 @@ app.use(function(req, res, next) {
 
 app.use('/', index);
 app.use('/users', users);
-//app.use('/events', events);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

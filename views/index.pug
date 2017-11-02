@@ -1,430 +1,412 @@
-doctype html
-html(lang='ko')
-  head
-    // Required meta tags
-    title Sunghee
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
-    // Bootstrap CSS
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css', integrity='sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M', crossorigin='anonymous')
-    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
-    link(rel='stylesheet', type='text/css', href='/stylesheets/exercise.css')
-  body
-    block top-nav
-      include ./includes/topnav
-      include ./includes/slide
-    block content
+extends layout
+
+block css
+  link(rel='stylesheet', type='text/css', href='/stylesheets/index.css')
+
+block content
+  include ./includes/slide
         // popular events in ~~~
-        div
-            p.popularEvents
-                | Popular Events in
-                a.text-input(href='')
-                    | Seoul, Republic of Korea
-                    i.fa.fa-times-circle-o(aria-hidden='true')
-            |
-            input.form-control.event-location-input(type='text', placeholder='Enter city or location', value='Seoul, Republic of Korea')
-        // 갤러리형 게시판
-        .card-deck.event-list
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event1.jpg', alt='event1')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            // 부트스트랩 아이콘은 4부터 지원x
-            // 교수님께 a안에 아니면 밖에 어느게 좋은지 여쭤보기.
-            // a 안에 있었을 때 p의 클래스 안먹음 > 밖으로 빼면 실행됨.
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event2.jpg', alt='event2')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            |
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event3.jpg', alt='event3')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-        |
-        .card-deck.event-list
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event4.jpg', alt='event4')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            |
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event5.jpg', alt='event5')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            |
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event6.jpeg', alt='event6')
-                    |
-                    .card-img-overlay
-                        p.event-price $321.05
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-        |
-        .card-deck.event-list
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event7.jpg', alt='event7')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            |
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event8.jpg', alt='event8')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            |
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event9.jpg', alt='event9')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-        |
-        .card-deck.event-list
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event10.jpg', alt='event10')
-                    |
-                    .card-img-overlay
-                        p.event-price $4,321
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            |
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event11.jpg', alt='event11')
-                    |
-                    .card-img-overlay
-                        p.event-price FREE
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-            |
-            .card.event-item
-                a(href='')
-                    img.card-img-top(src='images/event12.jpg', alt='event12')
-                    |
-                    .card-img-overlay
-                        p.event-price $1,000
-                    |
-                    .card-body
-                        p.event-date FRI, OCT 13 7:00 PM
-                        |
-                        p.event-name Korea
-                        |
-                        p.event-location Seoul
-                |
-                ul.list-group.list-group-flush
-                    li.list-group-item
-                        a.event-hashtag(href='') #Home
-                        |
-                        a.event-hashtag(href='') #Homework
-                        |
-                        a(href='')
-                            i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                        |
-                        a(href='')
-                            i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
-        // see more
-        .btn-see
-            button.btn.btn-outline-info(type='button') SEE MORE
-        // browse by top~~ 카테고리~~~
-        .category
-            p.category-text Browse by Top Categories
-            |
-            .row.category-img-list
-                .col-sm-12.col-md-6.col-lg-8
-                    a(href='')
-                        figure.category-img
-                            img(src='images/category1.jpg', alt='category1')
-                            |
-                            figcaption
-                                p Intimate house concerts, major music festivals, and the occasional dance party
-                                |
-                                .heading
-                                    h4 Music
-                |
-                .col-sm-12.col-md-6.col-lg-4
-                    figure.category-img
-                        img(src='images/category2.jpeg', alt='category2')
-                        |
-                        figcaption
-                            p Dinner parties, tastings, and big-time festivals
-                            |
-                            .heading
-                                h4 Food & Drink
-            |
-            .row.category-img-list
-                .col-sm-12.col-md-6.col-lg-4
-                    figure.category-img
-                        img(src='images/category3.jpg', alt='category3')
-                        |
-                        figcaption
-                            p Enlightening seminars, technical workshops, and fitness classes
-                            |
-                            .heading
-                                h4 Classes
-                |
-                .col-sm-12.col-md-6.col-lg-4
-                    figure.category-img
-                        img(src='images/category4.jpg', alt='category4')
-                        |
-                        figcaption
-                            p Plays, comedy nights, art exhibitions and film festivals
-                            |
-                            .heading
-                                h4 Arts
-                |
-                .col-sm-12.col-md-12.col-lg-4
-                    figure.category-img
-                        img(src='images/category5.jpg', alt='category5')
-                        |
-                        figcaption
-                            p Casual happy hours, singles nights, and all-night celebrations
-                            |
-                            .heading
-                                h4 Parties
-            |
-            .row.category-img-list
-                .col-sm-12.col-md-6.col-lg-4
-                    figure.category-img
-                        img(src='images/category6.jpg', alt='category6')
-                        |
-                        figcaption
-                            p Obstacle races, drop-in yoga classes, and the big game
-                            |
-                            .heading
-                                h4 Sports & Wellness
-                |
-                .col-sm-12.col-md-6.col-lg-8
-                    figure.category-img
-                        img(src='images/category7.jpg', alt='category7')
-                        |
-                        figcaption
-                            p Business mixers, hobby meetups, and panel discussions
-                            |
-                            .heading
-                                h4 Networking
-    block footer
-      include ./includes/footer
-        // Optional JavaScript
-        // jQuery first, then Popper.js, then Bootstrap JS
-        script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
-        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js', integrity='sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4', crossorigin='anonymous')
-        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js', integrity='sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1', crossorigin='anonymous')
+  div
+      p.popularEvents
+          | Popular Events in
+          a.text-input(href='')
+              | Seoul, Republic of Korea
+              i.fa.fa-times-circle-o(aria-hidden='true')
+      input.form-control.event-location-input(type='text', placeholder='Enter city or location', value='Seoul, Republic of Korea')
+  // 갤러리형 게시판
+  .card-deck.event-list
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event1.jpg', alt='event1')
+              .card-img-overlay
+                  p.event-price FREE
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      // 부트스트랩 아이콘은 4부터 지원x
+      // 교수님께 a안에 아니면 밖에 어느게 좋은지 여쭤보기.
+      // a 안에 있었을 때 p의 클래스 안먹음 > 밖으로 빼면 실행됨.
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event2.jpg', alt='event2')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      |
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event3.jpg', alt='event3')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+  |
+  .card-deck.event-list
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event4.jpg', alt='event4')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      |
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event5.jpg', alt='event5')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      |
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event6.jpeg', alt='event6')
+              |
+              .card-img-overlay
+                  p.event-price $321.05
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+  |
+  .card-deck.event-list
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event7.jpg', alt='event7')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      |
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event8.jpg', alt='event8')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      |
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event9.jpg', alt='event9')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+  |
+  .card-deck.event-list
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event10.jpg', alt='event10')
+              |
+              .card-img-overlay
+                  p.event-price $4,321
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      |
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event11.jpg', alt='event11')
+              |
+              .card-img-overlay
+                  p.event-price FREE
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+      |
+      .card.event-item
+          a(href='')
+              img.card-img-top(src='images/event12.jpg', alt='event12')
+              |
+              .card-img-overlay
+                  p.event-price $1,000
+              |
+              .card-body
+                  p.event-date FRI, OCT 13 7:00 PM
+                  |
+                  p.event-name Korea
+                  |
+                  p.event-location Seoul
+          |
+          ul.list-group.list-group-flush
+              li.list-group-item
+                  a.event-hashtag(href='') #Home
+                  |
+                  a.event-hashtag(href='') #Homework
+                  |
+                  a(href='')
+                      i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                  |
+                  a(href='')
+                      i.fa.fa-arrow-circle-down.event-icon(aria-hidden='true')
+  // see more
+  .btn-see
+      button.btn.btn-outline-info(type='button') SEE MORE
+  // browse by top~~ 카테고리~~~
+  .category
+      p.category-text Browse by Top Categories
+      |
+      .row.category-img-list
+          .col-sm-12.col-md-6.col-lg-8
+              a(href='')
+                  figure.category-img
+                      img(src='images/category1.jpg', alt='category1')
+                      |
+                      figcaption
+                          p Intimate house concerts, major music festivals, and the occasional dance party
+                          |
+                          .heading
+                              h4 Music
+          |
+          .col-sm-12.col-md-6.col-lg-4
+              figure.category-img
+                  img(src='images/category2.jpeg', alt='category2')
+                  |
+                  figcaption
+                      p Dinner parties, tastings, and big-time festivals
+                      |
+                      .heading
+                          h4 Food & Drink
+      |
+      .row.category-img-list
+          .col-sm-12.col-md-6.col-lg-4
+              figure.category-img
+                  img(src='images/category3.jpg', alt='category3')
+                  |
+                  figcaption
+                      p Enlightening seminars, technical workshops, and fitness classes
+                      |
+                      .heading
+                          h4 Classes
+          |
+          .col-sm-12.col-md-6.col-lg-4
+              figure.category-img
+                  img(src='images/category4.jpg', alt='category4')
+                  |
+                  figcaption
+                      p Plays, comedy nights, art exhibitions and film festivals
+                      |
+                      .heading
+                          h4 Arts
+          |
+          .col-sm-12.col-md-12.col-lg-4
+              figure.category-img
+                  img(src='images/category5.jpg', alt='category5')
+                  |
+                  figcaption
+                      p Casual happy hours, singles nights, and all-night celebrations
+                      |
+                      .heading
+                          h4 Parties
+      |
+      .row.category-img-list
+          .col-sm-12.col-md-6.col-lg-4
+              figure.category-img
+                  img(src='images/category6.jpg', alt='category6')
+                  |
+                  figcaption
+                      p Obstacle races, drop-in yoga classes, and the big game
+                      |
+                      .heading
+                          h4 Sports & Wellness
+          |
+          .col-sm-12.col-md-6.col-lg-8
+              figure.category-img
+                  img(src='images/category7.jpg', alt='category7')
+                  |
+                  figcaption
+                      p Business mixers, hobby meetups, and panel discussions
+                      |
+                      .heading
+                          h4 Networking
+
+      
