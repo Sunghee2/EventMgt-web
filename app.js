@@ -9,6 +9,7 @@ var session = require('express-session');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
 var mongoose   = require('mongoose');
+// var jquery = require('jquery');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -35,6 +36,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('/javascripsts', express.static(__dirname + 'public/javascripsts'));
 
 // _method를 통해서 method를 변경할 수 있도록 함. PUT이나 DELETE를 사용할 수 있도록.
 app.use(methodOverride('_method', {methods: ['POST', 'GET']}));

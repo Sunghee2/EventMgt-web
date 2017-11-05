@@ -48,19 +48,19 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
                                       button.btn.btn-primary(type='submit') LOGIN
                               |
                               .modal-footer
-                                  a(href=`/users/new`, data-toggle='modal', data-target='#createAccount') Create account
+                                  a.create-account(href='/users/new') Create account
                                   |                     or
-                                  a(href='', data-toggle='modal', data-target='#resetPassword') reset password
-                  //include users/new.pug
-                  include ../users/reset_password.pug
+                                  a.reset-password(href='/users/reset_password', data-toggle='modal', data-target='#resetPassword') reset password
+                  include ../users/new.pug
+                  //- include ../users/reset_password.pug
             else 
               li.nav-item.dropdown
                   a.nav-link.dropdown-toggle(href=`/users/${currentUser._id}`, data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                       | My Profile
                   .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                      a.dropdown-item(href='#') Where are my tickets?
-                      |
                       a.dropdown-item(href='#') Account Settings
+                      |
+                      a.dropdown-item(href='#') My favorite
                       |
                       a.dropdown-item(href='#') Log out
             li.nav-item.active

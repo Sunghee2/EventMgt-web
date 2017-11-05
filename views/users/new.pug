@@ -1,7 +1,7 @@
-extends ../index
-block script
-  script(src='../javascripsts/users/new')
-block content2
+//- extends ../index
+//- block script
+//-   script(src='../javascripsts/users/new')
+//- block content2
   #createAccount.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
       .modal-dialog(role='document')
           .modal-content
@@ -24,3 +24,5 @@ block content2
                           label(for='password_confirmation') Password Confirmation
                           input#password_confirmation.form-control(type='password', name='password_confirmation', placeholder='Password')
                       button.btn.btn-primary(type='submit') Register
+    script(type="text/javascript", src="../javascripsts/layout.js")
+                      

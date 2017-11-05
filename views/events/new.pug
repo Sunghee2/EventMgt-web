@@ -4,10 +4,7 @@ block css
   link(rel='stylesheet' type='text/css' href='/stylesheets/events/new.min.css')
   
 block script
-  script
-    | tinymce.init({
-    |   seletor: '#mytextarea'
-    | });
+  script(src='/javascripts/events/new.js')
     
 block content
   .createEvent
