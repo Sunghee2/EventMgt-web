@@ -1,6 +1,8 @@
-var express = require('express'),
-    Event = require('../models/event')
-var router = express.Router();
+const express = require('express');
+const Event = require('../models/event');
+const catchErrors = require('../lib/async-error');
+
+const router = express.Router();
 
 function needAuth(req, res, next) {
     if (req.session.user) {
@@ -53,5 +55,18 @@ router.get('/', needAuth, (req, res, next) => {
 router.get('/new', (req, res, next) => {
   res.render('events/new', {messages: req.flash()});
 });
+
+router.post('/', needAuth, catchErrors(async (req, res, next) => {
+  const user = req.user;
+  var event = new Event({
+    title: req.body.title,
+    author: user._id,
+    content: req.body.content,
+    tags: req.body.tags.split(" ").map(e => e.trim()),
+  });
+  await evnet.save();
+  req.flash('success', 'Successfully posted');
+  res.redirect('/questions');
+}));
 
 module.exports = router;

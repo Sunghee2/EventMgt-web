@@ -20,39 +20,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
                     a.dropdown-item(href='#') Help Center
             if(!currentUser)
               li.nav-item.active
-                  a.nav-link(href='', data-toggle='modal', data-target='#exampleModal') SIGN IN
-                  // Modal
-                  #exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
-                      .modal-dialog(role='document')
-                          .modal-content
-                              .modal-header
-                                  h3#exampleModalLabel.modal-title Please Sign In
-                                  |
-                                  button.close(type='button', data-dismiss='modal', aria-label='Close')
-                                      span(aria-hidden='true') ×
-                              |
-                              .modal-body
-                                  form
-                                      .form-group
-                                          label(for='exampleInputEmail1') Email address
-                                          |
-                                          input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email')
-                                          |
-                                          small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
-                                      |
-                                      .form-group
-                                          label(for='exampleInputPassword1') Password
-                                          |
-                                          input#exampleInputPassword1.form-control(type='password', placeholder='Password')
-                                      |
-                                      button.btn.btn-primary(type='submit') LOGIN
-                              |
-                              .modal-footer
-                                  a.create-account(href='/users/new') Create account
-                                  |                     or
-                                  a.reset-password(href='/users/reset_password', data-toggle='modal', data-target='#resetPassword') reset password
+                  a.nav-link(href='/signin', data-toggle='modal', data-target='#exampleModal') SIGN IN
+                  include ../signin.pug
                   include ../users/new.pug
-                  //- include ../users/reset_password.pug
+                  include ../users/reset_password.pug
             else 
               li.nav-item.dropdown
                   a.nav-link.dropdown-toggle(href=`/users/${currentUser._id}`, data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')

@@ -4,114 +4,13 @@ block css
   link(rel='stylesheet' type='text/css' href='/stylesheets/events/new.min.css')
   
 block script
-  script(src='/javascripts/events/new.js')
+  script(src='https://cloud.tinymce.com/stable/tinymce.min.js')
+  script(src='../javascripts/events/new.js')
     
 block content
   .createEvent
-    p.create-title Event Details
-    .title
-      label(for='title') EVENT TITLE
-    .event-input
-      input#title.form-control(type='text' name='title' placeholder='Give it a short distinct name')
-    .title
-      label(for='location') LOCATION 
-    .event-input
-      input#location.form-control(type='text' name='location' placeholder="Specify where it's held")
-    .title
-      label(for='starts') STARTS
-    .event-input
-      input#starts.form-control.col-lg-3(type='date' name='start_date')
-      select.form-control.col-lg-2(name='start_time')
-        option(value='') 01:00  
-        option(value='') 02:00 
-        option(value='') 03:00 
-        option(value='') 04:00 
-        option(value='') 05:00 
-        option(value='') 06:00 
-        option(value='' selected) 07:00 
-        option(value='') 08:00 
-        option(value='') 09:00 
-        option(value='') 10:00 
-        option(value='') 11:00 
-        option(value='') 12:00 
-      .form-check
-        label.form-check-label
-          input.form-chech-input(type='radio' name='start_am') 
-          | am &nbsp;&nbsp;
-        label.form-chech-input 
-          input.form-chech-input(type='radio' name='start_pm') 
-          | pm
-    .title
-      label(for='ends') ENDS
-    .event-input
-      input#ends.form-control.col-lg-3(type='date' name='end_date')
-      select.form-control.col-lg-2(name='end_time')
-        option(value='') 01:00  
-        option(value='') 02:00 
-        option(value='') 03:00 
-        option(value='') 04:00 
-        option(value='') 05:00 
-        option(value='') 06:00 
-        option(value='' selected) 07:00 
-        option(value='') 08:00 
-        option(value='') 09:00 
-        option(value='') 10:00 
-        option(value='') 11:00 
-        option(value='') 12:00
-      .form-check
-        label.form-check-label
-          input.form-chech-input(type='radio' name='end_am') 
-          | am &nbsp;&nbsp;
-        label.form-chech-input 
-          input.form-chech-input(type='radio' name='end_pm') 
-          | pm
-    .title
-      label(for='event-image') EVENT IMAGE
-    .event-input
-      form(method='post' enctype='multipart/form-data')
-        input.form-control-file(type='file' accept='image/*')
-    .title
-      label(for='event-description') EVENT DESCRIPTION
-    .event-input
-      textarea#mytextarea.form-control(rows='7' name='event_description')
-    .title
-      label(for='event-organizer') ORGANIZER NAME
-    .event-input
-      input#organizer.form-control(type='text' name='organizer' placeholder="Who's organizing this event?")
-    .title
-      label(for='event-organizer-description') ORGANIZER DESCRIPTION
-    .event-input
-      textarea#mytextarea.form-control(rows='1' name='organizer_description')
-    
-    p.create-title Create Tickets
-      p.ticket-price What type of ticket would you like to start with?
-    .event-input.event-price-button
-      button.btn.btn-outline-primary(type='button' name='free') + FREE TICKET
-      button.btn.btn-outline-primary(type='button' name='paid') + PAID TICKET
-    p.create-title Additional Setting
-    .title
-      label(for='event-type') EVENT TYPE
-    .event-input
-      select.form-control(name='event_type')
-        option(value='' selected disabled) Select the type of event
-        option(value='') Concert or performance
-        option(value='') Conference
-        option(value='') Festival or fair
-        option(value='') Tour
-        option(value='') Other
-    .title
-      label(for='event-topic') EVENT TOPIC
-    .event-input
-      select.form-control.col-lg-3(name='evnet_topic')
-        option(value='' selected disabled) Select a topic
-        option(value='') Business & Professional
-        option(value='') Music
-        option(value='') Science & Technology
-        option(value='') Travel & Outdoor
-        option(value='') Religion & Spirituality
-        option(value='') Other
-    br
-    br
-    .save
-      button.btn.btn-outline-primary(type='button' name='save') SAVE
+    form(action="/events", method="POST")
+      include _form
+      .save
+        button.btn.btn-outline-primary(type='submit' name='save') SAVE
               

@@ -1,8 +1,6 @@
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-
-var bcrypt = require("bcrypt-nodejs");//....
-var SALT_FACTOR = 10;  //해시 알고리즘 적용 횟수. 높을수록 보안 높고 속도 느려짐.
+const bcrypt = require('bcrypt');
 
 var schema = new Schema({
   name: {type: String, required: true, trim: true},
@@ -11,38 +9,17 @@ var schema = new Schema({
   password: {type: String},
   createdAt: {type: Date, default: Date.now}
 }, {
-  toJSON: { virtuals: true},
+  toJSON: {virtuals: true},
   toObject: {virtuals: true}
 });
-//삽입
-schema.methods.getname = function(){
-  return this.displayName || this.username;
+
+schema.methods.generateHash = function(password) {
+  return bcrypt.hash(password, 10); // return Promise
 };
-var noop = function(){};
-//저장되기 전에 실행되는 함수
-schema.pre("save", function(done){
-  var user = this;
-  if(!user.isModified("password")){
-    return done();
-  }
-  bcrypt.genSalt(SALT_FACTOR, function(err, salt){
-    if(err){
-      return done(err);
-    }
-    bcrypt.hash(user.password,salt, noop, function(err, hashedPassword){
-      if(err){
-        return done(err);
-      }
-      user.password=hashedPassword;
-      done();
-    });
-  });
-});
+
 //비밀번호검사함수
-schema.methods.checkPassword = function(guess, done){
-  bcrypt.compare(guess, this.password, function(err, isMatch){
-    done(err,isMatch);
-  });
+schema.methods.validatePassword = function(password) {
+  return bcrypt.compare(password, this.password); // return Promise
 };
 
 
