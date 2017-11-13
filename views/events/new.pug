@@ -4,12 +4,15 @@ block css
   link(rel='stylesheet' type='text/css' href='/stylesheets/events/new.min.css')
   
 block script
-  script(src='https://cloud.tinymce.com/stable/tinymce.min.js')
   script(src='../javascripts/events/new.js')
+  script(src='https://cloud.tinymce.com/stable/tinymce.min.js')
+  script
+    | tinymce.init({selector:'#mytextarea'});
+  
     
 block content
   .createEvent
-    form(action="/events", method="POST")
+    form(action="/events/new", method="POST")
       include _form
       .save
         button.btn.btn-outline-primary(type='submit' name='save') SAVE

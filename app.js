@@ -22,14 +22,15 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+if (app.get('env') === 'development') {
+  app.locals.pretty = true;
+}
 
 app.locals.moment = require('moment');
 app.locals.querystring = require('querystring');
 
-mongoose.Promise = global.Promise; // ES6 Native Promise를 mongoose에서 사용한다.
-mongoose.connect('mongodb://dbuser1:mju12345@ds113825.mlab.com:13825/sampledb1', {
-  useMongoClient: true
-});
+const connStr = 'mongodb://localhost/3000';
+mongoose.connect(connStr, {useMongoClient: true });
 mongoose.connection.on('error', console.error);
 
 
@@ -50,6 +51,7 @@ app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
   indentedSyntax: false, // true = .sass and false = .scss
+  debug: true,
   sourceMap: true
 }));
 
@@ -71,7 +73,7 @@ passportConfig(passport);
 
 // pug의 local에 현재 사용자 정보와 flash 메시지를 전달하자.
 app.use(function(req, res, next) {
-  res.locals.currentUser = req.session.user;
+  res.locals.currentUser = req.user;
   res.locals.flashMessages = req.flash();
   next();
 });

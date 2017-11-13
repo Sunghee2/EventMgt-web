@@ -1,5 +1,6 @@
 const express = require('express');
 const Event = require('../models/event');
+const Answer = require('../models/answer');
 const catchErrors = require('../lib/async-error');
 
 const router = express.Router();
@@ -9,64 +10,107 @@ function needAuth(req, res, next) {
       next();
     } else {
       req.flash('danger', 'Please signin first.');
-      res.redirect('/signin');
+      res.redirect('/');
     }
 }
 
-// function validateForm(form, options) {
-//   var title = form.title || "";
-//   var ema = form.email || "";
-//   name = name.trim();
-//   email = email.trim();
-//
-//   if (!name) {
-//     return 'Name is required.';
-//   }
-//
-//   if (!email) {
-//     return 'Email is required.';
-//   }
-//
-//   if (!form.password && options.needPassword) {
-//     return 'Password is required.';
-//   }
-//
-//   if (form.password !== form.password_confirmation) {
-//     return 'Passsword do not match.';
-//   }
-//
-//   if (form.password.length < 6) {
-//     return 'Password must be at least 6 characters.';
-//   }
-//
-//   return null;
-// }
+router.get('/', catchErrors(async (req, res, next) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
 
+  var query = {};
+  const term = req.query.term;
+  if (term) {
+    query = {$or: [
+      {title: {'$regex': term, '$options': 'i'}},
+      {location: {'$regex': term, '$options': 'i'}},
+      {start_time: {'$regex': term}},
+      {start_date: {'$regex': term}},
+      {start_am: {'$regex': term}},
+      {start_pm: {'$regex': term}},
+      {event_type: {'$regex': term, '$options': 'i'}}
+    ]};
+  }
+  const events = await Event.paginate(query, {
+    sort: {createdAt: -1},
+    populate: 'author',
+    page: page, limit: limit
+  });
+  res.render('events/index', {events: events, term: term});
+}));
 
-router.get('/', needAuth, (req, res, next) => {
-  User.find({}, function(err, users) {
-    if (err) {
-      return next(err);
-    }
-    res.render('evnets/index', {users: users});
-  }); // TODO: pagination?
+router.get('/new', needAuth, (req, res, next) => {
+  res.render('events/new', {events: {}});
 });
 
-router.get('/new', (req, res, next) => {
-  res.render('events/new', {messages: req.flash()});
-});
+router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
+  const event = await Event.findById(req.params.id);
+  res.render('events/edit', {event: event});
+}));
+
+router.get('/:id', catchErrors(async (req, res, next) => {
+  const event = await Event.findById(req.params.id).populate('author');
+  const answers = await Answer.find({event: event.id}).populate('author');
+  event.numReads++;   //조회수 증가 // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
+
+  await event.save();
+  res.render('evnets/show', {event: event, answers: answers});
+}));
+
+router.put('/:id', catchErrors(async (req, res, next) => {
+  const event = await Event.findById(req.params.id);
+
+  if (!event) {
+    req.flash('danger', 'Not exist event');
+    return res.redirect('back');
+  }
+  event.title = req.body.title;
+  event.event_description = req.body.event_description;
+  event.event_type = req.body.event_type.split(" ").map(e => e.trim());
+
+  await event.save();
+  req.flash('success', 'Successfully updated');
+  res.redirect('/events');
+}));
+
+router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
+  await Event.findOneAndRemove({_id: req.params.id});
+  req.flash('success', 'Successfully deleted');
+  res.redirect('/events');
+}));
 
 router.post('/', needAuth, catchErrors(async (req, res, next) => {
   const user = req.user;
   var event = new Event({
     title: req.body.title,
     author: user._id,
-    content: req.body.content,
-    tags: req.body.tags.split(" ").map(e => e.trim()),
+    event_description: req.body.event_description,
+    event_type: req.body.event_type.split(" ").map(e => e.trim()),
   });
-  await evnet.save();
+  await event.save();
   req.flash('success', 'Successfully posted');
-  res.redirect('/questions');
+  res.redirect('/events');
+}));
+
+router.post('/:id/answers', needAuth, catchErrors(async (req, res, next) => {
+  const event = await Event.findById(req.params.id);
+
+  if (!event) {
+    req.flash('danger', 'Not exist event');
+    return res.redirect('back');
+  }
+
+  var answer = new Answer({
+    author: user._id,
+    event: event._id,
+    content: req.body.content
+  });
+  await answer.save();
+  event.numAnswers++;
+  await event.save();
+
+  req.flash('success', 'Successfully answered');
+  res.redirect(`/events/${req.params.id}`);
 }));
 
 module.exports = router;

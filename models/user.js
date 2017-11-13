@@ -7,6 +7,7 @@ var schema = new Schema({
   email: {type: String, required: true, index: true, unique: true, trim: true},
   // required꼭입력. unique중복안됨. trim 공백제거(문자열에만)
   password: {type: String},
+  facebook: {id: String, token: String, photo: String},
   createdAt: {type: Date, default: Date.now}
 }, {
   toJSON: {virtuals: true},
