@@ -41,7 +41,6 @@ function validateForm(form, options) {
   return null;
 }
 
-/* GET users listing. */
 router.get('/', needAuth, catchErrors(async (req, res, next) => {
   const users = await User.find({});
   res.render('users/index', {users: users});

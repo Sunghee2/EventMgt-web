@@ -12,8 +12,8 @@ block script
     
 block content
   .createEvent
-    form(action="/events/new", method="POST")
+    form(action="/events", method="POST")
       include _form
       .save
-        button.btn.btn-outline-primary(type='submit' name='save') SAVE
+        button.btn.btn-outline-primary(type='submit') SAVE
               

@@ -14,9 +14,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
                     | HELP
                 .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                     a.dropdown-item(href='#') Where are my tickets?
-                    |
                     a.dropdown-item(href='#') How to contact the event organizer
-                    |
                     a.dropdown-item(href='#') Help Center
             if(!currentUser)
               li.nav-item.active
@@ -29,11 +27,9 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
                   a.nav-link.dropdown-toggle(href=`/users/${currentUser._id}`, data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                       | My Profile
                   .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                      a.dropdown-item(href='#') Account Settings
-                      |
+                      a.dropdown-item(href=`/users/${currentUser._id}`) Account Settings
                       a.dropdown-item(href='#') My favorite
-                      |
-                      a.dropdown-item(href='#') Log out
+                      a.dropdown-item(href='/signout') Log out
             li.nav-item.active
                 a.nav-link(href='/events/new')
                     span CREATE EVENT

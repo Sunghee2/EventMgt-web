@@ -6,7 +6,7 @@ const catchErrors = require('../lib/async-error');
 const router = express.Router();
 
 function needAuth(req, res, next) {
-    if (req.session.user) {
+    if (req.isAuthenticated) {
       next();
     } else {
       req.flash('danger', 'Please signin first.');
@@ -57,7 +57,7 @@ router.get('/:id', catchErrors(async (req, res, next) => {
   res.render('evnets/show', {event: event, answers: answers});
 }));
 
-router.put('/:id', catchErrors(async (req, res, next) => {
+router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
   const event = await Event.findById(req.params.id);
 
   if (!event) {
@@ -84,8 +84,23 @@ router.post('/', needAuth, catchErrors(async (req, res, next) => {
   var event = new Event({
     title: req.body.title,
     author: user._id,
+    location: req.body.location,
+    start_date: req.body.start_date,
+    start_time: req.body.start_time,
+    start_am: req.body.start_am,
+    start_pm: req.body.start_pm,
+    end_date: req.body.end_date,
+    end_time: req.body.end_time,
+    end_am: req.body.end_am,
+    end_pm: req.body.end_pm,
     event_description: req.body.event_description,
-    event_type: req.body.event_type.split(" ").map(e => e.trim()),
+    organizer: req.body.organizer,
+    organizer_description: req.body.organizer_description,
+    ticket_name: req.body.ticket_name,
+    ticket_quantity: req.body.ticket_quantity,
+    ticket_price: req.body.ticket_price,
+    event_type: req.body.event_type,
+    event_topic: req.body.event_topic
   });
   await event.save();
   req.flash('success', 'Successfully posted');
