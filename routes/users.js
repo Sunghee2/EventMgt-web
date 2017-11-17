@@ -1,5 +1,5 @@
-var express = require('express'),
-    User = require('../models/user');
+var express = require('express')
+var User = require('../models/user');
 var router = express.Router();
 const catchErrors = require('../lib/async-error');
 
@@ -114,6 +114,40 @@ router.post('/', catchErrors(async (req, res, next) => {
   await user.save();
   req.flash('success', 'Registered successfully. Please sign in.');
   res.redirect('/');
+}));
+
+router.get('/:id/changePassword', catchErrors(async(req, res, next) => {
+  const user = await User.findById(req.params.id);
+  res.render('users/change_password', {user: user});
+}));
+
+router.put('/:id/changePassword', needAuth, catchErrors(async (req, res, next) => {
+  const user = await User.findById({_id: req.params.id});
+  // if (!await user.validatePassword(req.body.current_password)) {
+  //   req.flash('danger', 'Current password invalid.');
+  //   return res.redirect('back');
+  // }
+  if(!req.body.new_password) {
+    req.flash('danger', 'Password is requried.');
+    return res.redirect('back');
+  }
+  if(req.body.new_password !== req.body.new_password_confirmation){
+    req.flash('danger', 'Password do not match.');
+    return res.redirect('back');
+  }
+  if(req.body.password.legnth < 6){
+    req.flash('danger', 'Password must be at least 6 characters.');
+    return res.redirect('back');
+  }
+
+  user.password = await user.generateHash(req.body.new_password);
+  await user.save(function(err){
+    if(err) {next(err)}
+    else {
+      req.flash('success', 'Updated successfully.');
+      res.redirect(`/users/${req.params.id}`);
+    }
+  })
 }));
 
 module.exports = router;

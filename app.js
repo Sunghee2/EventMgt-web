@@ -46,7 +46,7 @@ app.use(methodOverride('_method', {methods: ['POST', 'GET']}));
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
-  indentedSyntax: false, 
+  indentedSyntax: false,
   debug: true,
   sourceMap: true
 }));

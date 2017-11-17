@@ -9,13 +9,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
                 a.nav-link(href='/events')
                     | BROWSE EVENTS
                     span.sr-only (current)
-            li.nav-item.dropdown
-                a.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                    | HELP
-                .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                    a.dropdown-item(href='#') Where are my tickets?
-                    a.dropdown-item(href='#') How to contact the event organizer
-                    a.dropdown-item(href='#') Help Center
             if(!currentUser)
               li.nav-item.active
                   a.nav-link(href='/signin', data-toggle='modal', data-target='#exampleModal') SIGN IN
@@ -28,8 +21,12 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
                       | My Profile
                   .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                       a.dropdown-item(href=`/users/${currentUser._id}`) Account Settings
+                      a.dropdown-item(href='#') My event
                       a.dropdown-item(href='#') My favorite
                       a.dropdown-item(href='/signout') Log out
+            if(isAdmin)
+              li.nav-item.active
+                a.nav-link(href='/users') User List
             li.nav-item.active
                 a.nav-link(href='/events/new')
                     span CREATE EVENT
