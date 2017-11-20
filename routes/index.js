@@ -7,6 +7,10 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+router.get('/test', function(req, res, next) {
+  res.render('test');
+});
+
 // router.post('/upload', uploadSetting.single('upload').function(req, res){
 //   var tmpPath = req.file.path;
 //   var fileName = req.file.filename;

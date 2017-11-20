@@ -9,7 +9,8 @@ var schema = new Schema({
   isAdmin: {type: Boolean, default: false},
   facebook: {id: String, token: String, photo: String},
   kakaotalk: {id: String, token: String, photo: String},
-  createdAt: {type: Date, default: Date.now}
+  createdAt: {type: Date, default: Date.now},
+  favorite: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 }, {
   toJSON: {virtuals: true},
   toObject: {virtuals: true}

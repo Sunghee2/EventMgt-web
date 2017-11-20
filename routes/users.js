@@ -42,6 +42,10 @@ function validateForm(form, options) {
 }
 
 router.get('/', needAuth, catchErrors(async (req, res, next) => {
+  // if (!currentUser.isAdmin) {
+  //   req.flash('danger','권한이 없습니다.');
+  //   return res.redirect('back');
+  // }
   const users = await User.find({});
   res.render('users/index', {users: users});
 }));

@@ -6,7 +6,7 @@ const catchErrors = require('../lib/async-error');
 const router = express.Router();
 
 function needAuth(req, res, next) {
-    if (req.isAuthenticated) {
+    if (req.isAuthenticated()) {
       next();
     } else {
       req.flash('danger', 'Please signin first.');
@@ -22,13 +22,7 @@ router.get('/', catchErrors(async (req, res, next) => {
   const term = req.query.term;
   if (term) {
     query = {$or: [
-      {title: {'$regex': term, '$options': 'i'}},
-      {location: {'$regex': term, '$options': 'i'}},
-      {start_time: {'$regex': term}},
-      {start_date: {'$regex': term}},
-      {start_am: {'$regex': term}},
-      {start_pm: {'$regex': term}},
-      {event_type: {'$regex': term, '$options': 'i'}}
+      {title: {'$regex': term, '$options': 'i'}}
     ]};
   }
   const events = await Event.paginate(query, {
@@ -39,9 +33,9 @@ router.get('/', catchErrors(async (req, res, next) => {
   res.render('events/index', {events: events, term: term});
 }));
 
-router.get('/new', needAuth, (req, res, next) => {
+router.get('/new', needAuth, catchErrors(async(req, res, next) => {
   res.render('events/new', {events: {}});
-});
+}));
 
 router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
@@ -54,7 +48,7 @@ router.get('/:id', catchErrors(async (req, res, next) => {
   event.numReads++;   //조회수 증가 // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
 
   await event.save();
-  res.render('evnets/show', {event: event, answers: answers});
+  res.render('events/show', {event: event, answers: answers});
 }));
 
 router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
