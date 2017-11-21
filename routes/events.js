@@ -1,6 +1,7 @@
 const express = require('express');
 const Event = require('../models/event');
 const Answer = require('../models/answer');
+const Participant = require('../models/participant');
 const catchErrors = require('../lib/async-error');
 
 const router = express.Router();
@@ -101,24 +102,30 @@ router.post('/', needAuth, catchErrors(async (req, res, next) => {
   res.redirect('/events');
 }));
 
-router.post('/:id/answers', needAuth, catchErrors(async (req, res, next) => {
+router.post('/:id/register', needAuth, catchErrors(async (req, res, next) => {
+  const user = req.user;
   const event = await Event.findById(req.params.id);
 
   if (!event) {
     req.flash('danger', 'Not exist event');
     return res.redirect('back');
   }
+  if(event.numRegister >= event.ticket_quantity){
+    req.flash('danger', '인원 꽉 참');
+    return res.redirect('back');
+  }
 
-  var answer = new Answer({
-    author: user._id,
+  var participant = new Participant({
+    participant: user._id,
     event: event._id,
-    content: req.body.content
+    works_at: req.body.works_at,
+    reason: req.body.reason
   });
-  await answer.save();
-  event.numAnswers++;
+  await participant.save();
+  event.numRegister++;
   await event.save();
 
-  req.flash('success', 'Successfully answered');
+  req.flash('success', 'Successfully registered');
   res.redirect(`/events/${req.params.id}`);
 }));
 
