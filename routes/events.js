@@ -15,6 +15,52 @@ function needAuth(req, res, next) {
     }
 }
 
+function validateForm(form, options) {
+  var title = form.title || "";
+  var location = form.location || "";
+  var start_date = form.start_date || "";
+  var end_date = form.end_date || "";
+  var event_description = form.event_description || "";
+  var organizer = form.organizer || "";
+  var organizer_description = form.organizer_description || "";
+
+  title = title.trim();
+  location = location.trim();
+  event_description = event_description.trim();
+  organizer = organizer.trim();
+  organizer_description = organizer_description.trim();
+
+  if (!title) {
+    return 'Title is required.';
+  }
+
+  if (!location) {
+    return 'Location is required.';
+  }
+
+  if (!start_date) {
+    return 'Start date is required.';
+  }
+
+  if (!end_date) {
+    return 'End date is required.';
+  }
+
+  if (!event_description) {
+    return 'Event description is required.';
+  }
+
+  if (!organizer) {
+    return 'Organizer is required.';
+  }
+
+  if (!organizer_description) {
+    return 'Organizer description is required.';
+  }
+
+  return null;
+}
+
 router.get('/', catchErrors(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -45,11 +91,10 @@ router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
 
 router.get('/:id', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id).populate('author');
-  const answers = await Answer.find({event: event.id}).populate('author');
-  event.numReads++;   //조회수 증가 // TODO: 동일한 사람이 본 경우에 Read가 증가하지 않도록???
+  const participants = await Participant.find({event: event.id}).populate('participant');
 
   await event.save();
-  res.render('events/show', {event: event, answers: answers});
+  res.render('events/show', {event: event, participants: participants});
 }));
 
 router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
@@ -59,6 +104,13 @@ router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
     req.flash('danger', 'Not exist event');
     return res.redirect('back');
   }
+
+  const err = validateForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
   event.title = req.body.title;
   event.event_description = req.body.event_description;
   event.event_type = req.body.event_type.split(" ").map(e => e.trim());
@@ -76,6 +128,11 @@ router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
 
 router.post('/', needAuth, catchErrors(async (req, res, next) => {
   const user = req.user;
+  const err = validateForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
   var event = new Event({
     title: req.body.title,
     author: user._id,
