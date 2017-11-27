@@ -2,6 +2,7 @@ const express = require('express');
 const Event = require('../models/event');
 const Answer = require('../models/answer');
 const Participant = require('../models/participant');
+const Question = require('../models/question');
 const catchErrors = require('../lib/async-error');
 
 const router = express.Router();
@@ -61,6 +62,27 @@ function validateForm(form, options) {
   return null;
 }
 
+function validateQuestionForm(form, options){
+  var title = form.title || "";
+  var contents = form.contents || "";
+
+  title = title.trim();
+  contents = contents.trim();
+
+  if (!title) {
+    return '제목은 입력해주세요.';
+  }
+
+  if(title.length>=20){
+    return '제목은 10글자로 제한됩니다.'
+  }
+
+  if (!contents) {
+    return '내용을 입력해주세요.';
+  }
+  return null;
+}
+
 router.get('/', catchErrors(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -80,6 +102,24 @@ router.get('/', catchErrors(async (req, res, next) => {
   res.render('events/index', {events: events, term: term});
 }));
 
+router.get('/map.json', catchErrors(async(req,res,next)=>{
+  var query = {};
+  const events = await Event.paginate(query, {
+    sort: {createdAt: -1},
+    populate: 'author',
+  });
+  res.json(events);
+}));
+
+router.get('/map', catchErrors(async(req,res,next)=>{
+  var query = {};
+  const events = await Event.paginate(query, {
+    sort: {createdAt: -1},
+    populate: 'author',
+  });
+  res.render('events/map',{events: events});
+}));
+
 router.get('/new', needAuth, catchErrors(async(req, res, next) => {
   res.render('events/new', {events: {}});
 }));
@@ -89,12 +129,25 @@ router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
   res.render('events/edit', {event: event});
 }));
 
+router.get('/:id/question', needAuth, catchErrors(async (req, res, next)=>{
+  const event = await Event.findById(req.params.id);
+  res.render('events/question', {event: event});
+}))
+
+router.get('/:id.json', catchErrors(async (req, res, next) => {
+  const event = await Event.findById(req.params.id);
+  const questions = await Question.find({event: event.id}).populate('author');
+
+  res.json(questions);
+}));
+
 router.get('/:id', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id).populate('author');
   const participants = await Participant.find({event: event.id}).populate('participant');
+  const questions = await Question.find({event: event.id}).populate('author');
 
   await event.save();
-  res.render('events/show', {event: event, participants: participants});
+  res.render('events/show', {event: event, participants: participants, questions: questions});
 }));
 
 router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
@@ -185,5 +238,40 @@ router.post('/:id/register', needAuth, catchErrors(async (req, res, next) => {
   req.flash('success', 'Successfully registered');
   res.redirect(`/events/${req.params.id}`);
 }));
+
+router.post('/:id/question', needAuth, catchErrors(async (req, res, next)=>{
+  const user = req.user;
+  const event = await Event.findById(req.params.id);
+  const err = validateQuestionForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
+  var question = new Question({
+    author: user._id,
+    event: event._id,
+    title: req.body.title,
+    contents: req.body.contents
+  });
+  await question.save();
+
+  req.flash('success', 'Successfully registered');
+  res.redirect(`/events/${req.params.id}`);
+}));
+
+router.post('/:id/:id_question/answers', needAuth, catchErrors(async (req, res, next)=>{
+  const user = req.user;
+  const event = await Event.findById(req.params.id);
+  const question = await Question.findById(req.params.id_question);
+
+
+  question.answer = req.body.answer;
+
+  await question.save();
+
+  req.flash('success', '답변이 등록되었습니다.');
+  res.redirect(`/events/${req.params.id}`);
+}))
 
 module.exports = router;

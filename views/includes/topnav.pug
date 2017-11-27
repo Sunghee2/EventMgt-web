@@ -5,10 +5,14 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
         span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse.col-md-7.ml-auto
         ul.navbar-nav.mr-auto
-            li.nav-item.active
-                a.nav-link(href='/events')
+            li.nav-item.dropdown
+                a.nav-link.dropdown-toggle(href='/events', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                     | BROWSE EVENTS
-                    span.sr-only (current)
+                .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                  a.dropdown-item(href='/events') 전체보기
+                  a.dropdown-item(href='/events/map') 지도로 보기
+                  a.dropdown-item(href='') 캘린더로 보기
+                    
             if(!currentUser)
               li.nav-item.active
                   a.nav-link(href='/signin', data-toggle='modal', data-target='#exampleModal') SIGN IN
