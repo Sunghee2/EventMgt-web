@@ -1,0 +1,21 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+.main-title {
+  font-size: 2em;
+  margin-top: 2%;
+  padding-bottom: 2%;
+  border-bottom: 1px solid lightgray;
+  font-family: 'Kaushan Script', cursive;
+}
+
+.form-group{
+  margin-top: 3%;
+  text-align: center;
+  label {
+    font-family: 'Jeju Gothic', serif;
+  }
+}
+
+.button {
+  text-align: center;
+  margin-bottom: 5%;
+}

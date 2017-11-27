@@ -1,0 +1,35 @@
+// Modal
+#exampleModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+    .modal-dialog(role='document')
+        .modal-content
+            .modal-header
+                h3#exampleModalLabel.modal-title Please Sign In
+                button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') ×
+            .modal-body
+                form(action='/signin', method='POST')
+                    .form-group
+                        label(for='exampleInputEmail1') Email address
+                        input#exampleInputEmail1.form-control(type='email', aria-describedby='emailHelp', placeholder='Enter email', name='email', required, autofocus)
+                        small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+                    .form-group
+                        label(for='exampleInputPassword1') Password
+                        input#exampleInputPassword1.form-control(type='password', name='password', placeholder='Password', required, autofocus)
+                    button.btn.btn-primary(type='submit') LOGIN
+                    |
+                    |
+                    |
+                    a.btn.btn-dark(href='/auth/facebook')
+                        i.fa.fa-facebook.fa-lg
+                        | &nbsp;
+                        | Facebook
+                    |
+                    |
+                    |
+                    a.btn.btn-warning(href='/auth/kakaotalk')
+                        | Kakaotalk
+            .modal-footer
+                a.create-account(href='/users/new', data-toggle='modal', data-target="#createAccount") Create account
+                |                     or
+                a.reset-password(href='/users/reset_password', data-toggle='modal', data-target='#resetPassword') reset password
+                

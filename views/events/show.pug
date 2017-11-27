@@ -1,0 +1,168 @@
+extend ../layout
+
+block css
+  link(rel='stylesheet' type='text/css' href='/stylesheets/events/show.min.css')
+
+block script
+  script(src='/javascripts/events/show.js')
+
+block content
+  .event_show
+    .header.row
+      .event_description_top.col-9
+        a(href='')
+          i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+        p #{moment(event.start_date).format('dddd, MMMM DD, YYYY')} ~
+        p.event_title= event.title
+        p.event_organizer= event.organizer
+        if event.ticket_price==0
+          p.event_price FREE
+        else
+          p.event_price= event.ticket_price 
+      .event_img.col-3
+        img(src='../images/event8.jpg', alt='event_photo')
+    .middle.row
+      .col-9
+        if(currentUser && event.author.id == currentUser.id)
+            a.btn.btn-secondary(href=`/events/${event._id}/edit`) EDIT
+            a.btn.btn-secondary(href=`/events/${event.id}?_method=delete` onclick='return confirm("Do you want to delete this event?");') DELETE
+      .col-3
+        if(event.numRegister >= event.ticket_quantity)
+          button.btn.btn-primary(type='button' disabled) FULL
+        else
+          button.btn.btn-primary(type='button' data-toggle="modal" data-target="#register_modal") REGISTER
+          include _register.pug
+    .middle2.row
+      .event_description_bottom_left.col-9
+        .card.card-ticket
+          .card-header Ticket Information
+          .card-body
+            table.table
+              thead
+                tr
+                  th(scope="col") NAME
+                  th(scope="col") PRICE
+                  th(scope="col") QUANTITY
+              tbody
+                tr
+                  td(scope="row")= event.ticket_name
+                  if event.ticket_price==0
+                    td FREE
+                  else
+                    td= event.ticket_price 
+                  td= event.ticket_quantity
+        .card.card-details
+          .card-header Event Details
+          .card-body
+            p.event_type.card-title= event.event_type
+            p.event_description.card-text!= event.event_description
+      .event_description_bottom_right.col-3
+        .card
+          .card-header When & Where
+          .card-body
+            p.card_locaion= event.location
+            p.event_date Start: #{moment(event.start_date).format('ddd, MMM DD, YYYY')} at 
+            p.event_time= event.start_time
+            if(event.start_am)
+              p.event_time am
+            else
+              p.event_time pm
+            br
+            p.event_date End: #{moment(event.end_date).format('ddd, MMM DD, YYYY')} at 
+            p.event_time= event.end_time
+            if(event.end_am)
+              p.event_time am
+            else
+              p.event_time pm
+
+        .card.card-organizer
+          .card-header Organizer
+          .card-body
+            p.card-title= event.organizer
+            p.card-text= event.organizer_description
+    .bottom
+      if(currentUser && event.author.id == currentUser.id)
+        .card.border-secondary
+          .card-header 신청자 목록
+          .card-body.text-secondary
+            if(event.numRegister==0)
+              p 신청자가 없습니다.
+            else
+              .participants
+                table.table
+                  thead.thead-light
+                    tr
+                      th(scope="col") 신청일
+                      th(scope="col") 이름
+                      th(scope="col") 소속
+                      th(scope="col") 참여이유
+                  tbody
+                      each participant in participants
+                        tr
+                          td(scope="row")= moment(participant.participatedAt).format('YYYY/MM/DD')
+                          td= participant.participant.name
+                          td= participant.works_at
+                          td= participant.reason
+              
+    .question
+      .card
+        .card-header Q & A
+        .card-body
+          if questions.total <= 0 
+            .alert.alert-info 등록된 질문이 없습니다.
+          else
+            table.table.table-hover
+              thead
+                tr
+                  th.td-num(scope="col") 번호
+                  th.td-question(scope="col") 질문
+                  th.td-author(scope="col") 작성자
+                  th.td-date(scope="col") 작성일
+              tbody
+                - var num = 1;
+                each question in questions
+                  tr#question_show1(class= question.id)
+                    th.td-num(scope="row")= num++
+                    td.td-question= question.title
+                    td.td-author= question.author.name
+                    td.td-date= moment(question.questionedAt).format('YYYY/MM/DD')
+                  tr.question_show#question_show2(class= question.id, style="display:none")
+                    td(colspan="4")
+                      table
+                        tr
+                          th 질문자 :
+                          td= question.author.name
+                        tr
+                          th 작성일 :
+                          td= moment(question.questionedAt).format('YYYY.MM.DD hh:mm:ss')
+                        tr
+                          th 제목 :
+                          td= question.title
+                        tr
+                          th 질문 :
+                          td= question.contents
+                      if(question.answer)
+                        p= '답변 : ' + question.answer
+                      if(currentUser && event.author.id == currentUser.id)
+                        form(action=`/events/${event._id}/${question._id}/answers`, method='POST')
+                          .form-group
+                            textarea.form-control(name="answer", rows="2")
+                          button.btn.btn-primary(type="submit") Post Your Answer
+              if(currentUser && event.author.id != currentUser.id)
+                a.btn.btn-outline-secondary.btn-sm(href=`/events/${event._id}/question`) 질문하기
+  
+  
+  
+  script#question(type="text/template").
+    table
+      tr
+        th 질문자 : 
+        td= question.author.name
+        th 작성일 :
+        td= question.questionedAt
+      tr
+        th 제목 :
+        td= question.title
+      tr
+        td= question.contents
+  

@@ -1,0 +1,122 @@
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+.event_show {
+  margin: 5% 15% 5% 15%;
+  .header {
+    .event_description_top {
+      border-bottom: 1px solid lightgray;
+      font-family: 'Jeju Gothic', serif;
+      .event-icon {
+        font-size: 2.5em;
+        margin-right: 25%;
+      }
+      .event_title {
+        font-size: 2em;
+        font-weight: bold;
+      }
+    }
+    img {
+      width: inherit;
+    }
+  }
+
+  .middle {
+    margin-top: 1%;
+    margin-bottom: 2%;
+    .col-3 {
+      button {
+        width: inherit;
+      }
+    }
+  }
+
+  .middle2 {
+    .card-header{
+      font-family: 'Jeju Gothic', serif;
+    }
+    .card {
+      margin-bottom: 5%;
+    }
+    .event_description_bottom_left {
+      th, td {
+        text-align: center;
+      }
+      .card-details {
+        .card-body {
+          p.event_type {
+            text-align: left;
+            font-weight: bold;
+          }
+          p.event_description {
+            text-align: left;
+          }
+        }
+      }
+    }
+    .event_description_bottom_right {
+      .card_locaion {
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 0.2em;
+        padding-bottom: 0.2em;
+      }
+      p.event_date {
+        display: initial;
+      }
+      p.event_time {
+        display: initial;
+      }
+      .card-organizer{
+        p {
+          text-align: left;
+        }
+        p.card-title {
+          font-weight: bold;
+        }
+      }
+    }
+
+  }
+  .question{
+    margin-top: 5%;
+    table {
+      width: auto;
+      .td-num {
+        width: 10%;
+      }
+      .td-question {
+        width: 70%;
+      }
+      .td-author {
+        width: 10%;
+      }
+      .td-date {
+        width: 10%;
+      }
+      // tbody{
+      //   .td-question {
+      //     text-overflow: ellipsis;
+      //     white-space: nowrap;
+      //     word-wrap: break-word;
+      //     overflow: hidden;
+      //   }
+      // }
+      .question_show {
+        text-align: -webkit-center;
+        background-color: #FAFAFA;
+        table {
+          font-size: 0.8em;
+          text-align: center;
+          width: -webkit-fill-available;
+        }
+        p {
+          border-top: 0.7px dotted black;
+          font-size: 0.9em;
+          padding-top: 1%;
+          margin-bottom: 2%;
+          font-weight: bold;
+        }
+      }
+    }
+
+  }
+}

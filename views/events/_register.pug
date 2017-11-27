@@ -1,0 +1,23 @@
+.modal.fade#register_modal(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+  .modal-dialog(role='document')
+      .modal-content
+          .modal-header
+              h3#exampleModalLabel.modal-title REGISTER
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                  span(aria-hidden='true') ×
+          .modal-body
+              p.ticket_name= event.ticket_name
+              if event.ticket_price==0
+                p.event_price FREE
+              else
+                p.event_price= event.ticket_price
+              br 
+              form(action=`/events/${event.id}/register`, method='POST')
+                  .form-group
+                      label(for='works_at') 소속
+                      input#worksAt.form-control(type='text', name='works_at')
+                  .form-group
+                      label(for='reason') 참가 이유
+                      input#reason.form-control(type='text', name='reason')
+                  button.btn.btn-outline-primary(type='submit') Yes
+                  button.btn.btn-outline-secondary(type='button', data-dismiss='modal', aria-label='Close') No

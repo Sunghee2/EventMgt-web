@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Kaushan+Script');
+
+body{
+  background-color: #FAFAFA
+}
+
+
+p{
+  margin: auto;
+  text-align: center;
+}
+
+a:link{
+  text-decoration: none;
+}
+
+hr{
+  display: none;
+}
+
+figure {
+  padding: 0;
+  margin: 0;
+}
+/*
+.navbar-collapse{
+  padding-right: 0;
+}
+
+.navbar-nav{
+  margin-right: 0 !important;
+}*/
+
+nav.navbar-expand-lg{
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-bottom: 1px solid lightgray;
+}
+
+a.logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 30px;
+}
+
+div.collapse>ul.mr-auto{
+    margin-right: 0 !important;
+    margin-left: auto;
+}
+
+a.nav-link{
+  margin-left: 10px !important;
+}
+
+a.nav-link span{
+  color: #17a2b8;
+}
+
+h3.modal-title {
+  font-family: 'Kaushan Script', cursive;
+}
+
+.footer{
+  border-top: 5px solid gray;
+  background-color: #282c35;
+  color: white;
+  padding-right: 15%;
+  padding-left: 15%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+}
+
+.footer-title{
+  margin-top: 0.6em;
+  text-align: left;
+  color: gray;
+}
+
+.footer-text{
+  display: none;
+}
+
+.menu>.footer-title{
+  display: none;
+}
+
+.menu2>.col-lg-9>.footer-title{
+  color: white;
+  margin-right: 2em;
+}
+
+.menu2>.col-lg-9>.footer-title:hover{
+  text-decoration: underline;
+}
+
+.menu2>select.form-control{
+  background-color: #282c35;
+  color: white;
+  border: 1px solid gray;
+}
+
+.end>.footer-title{
+  color: white;
+  font-family: 'Kaushan Script', cursive;
+  text-align: center;
+}
+
+@media only screen and (min-device-width:768px) {
+  .footer-text{
+    display: block;
+    text-align: left;
+    color: white;
+    font-size: 0.8em;
+    line-height: 2em;
+    margin-right: 2em;
+  }
+
+  .footer-text:hover{
+    text-decoration: underline;
+    color:white;
+  }
+
+  .menu>.footer-title{
+    display: block;
+  }
+
+  .menu2>.col-lg-9>.footer-title{
+    text-align: left;
+  }
+}
+
+@media only screen and (min-device-width : 1025px){
+
+  nav.navbar{
+    margin: 0;
+  }
+
+  nav.navbarSearch {
+    margin-left: 22%;
+    margin-bottom: 35%;
+  }
+}

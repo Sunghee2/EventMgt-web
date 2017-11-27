@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  #editAccount 
+    p.title Edit Account
+    .input
+        form(action=`/users/${user._id}?_method=PUT`, method='POST')
+            .form-group
+                label(for='name') Name
+                input#name.form-control(type='text', name='name', placeholder='Your name', value=user.name)
+            .form-group
+                label(for='email') Email address
+                input#email.form-control(type='email', name='email', placeholder='Email', value=user.email)
+            .form-group
+                label(for='password') Current Password
+                input#password.form-control(type='password', name='password', placeholder='Password')
+            .form-group
+                label(for='password_confirmation') Password
+                input#password_confirmation.form-control(type='password', name='password_confirmation', placeholder='Password')
+            a.btn.btn-outline-secondary(href='javascript:window.history.back();') Back 
+            | 
+            button.btn.btn-primary(type='submit') Update
+    a.delete_user(src='') 회원 탈퇴
+    

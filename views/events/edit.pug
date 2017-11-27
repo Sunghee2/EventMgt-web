@@ -1,0 +1,231 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet' type='text/css' href='/stylesheets/events/edit.min.css')
+
+block script
+  script(type="text/javascript", src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5161517a9e126daa813c4fc2ef4904ce&libraries=services")
+  script(src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=fi6u5alskg4pt9zdcxw6cjqlmvrbj54rsanloc7nw8u46z1p')
+  script
+    | tinymce.init({selector:'#mytextarea', menubar: false});
+  script(type="text/javascript", src='/javascripts/events/edit.js')
+  
+block content
+  .editEvent
+    form(action=`/events/${event.id}`, method="POST")
+      input(type="hidden", name="_method", value="PUT")
+      p.edit-title Update Event Details
+      .form-group
+        label(for='title') EVENT TITLE
+        input#title.form-control(type='text' name='title' placeholder='Give it a short distinct name' value=event.title)
+      .form-group
+        label(for='location') LOCATION 
+        input#location.form-control(type='text' name='location' placeholder="Specify where it's held" value=event.location)
+        //- p.location_map &nbsp;&nbsp;&nbsp;지도로 보기
+        br
+        .map_wrap
+          #map(style="width:25em;height:25em;display: inline-block;")
+          .hAddr
+            span#centerAddr
+      .form-group
+        label(for='starts') STARTS
+        input#starts.form-control.col-lg-3(type='date' name='start_date' title='YYYY-MM-DD 형식으로 작성해주세요' value= moment(event.start_date).format('YYYY-MM-DD'))
+        select#start_time.form-control.col-lg-2(name='start_time')
+          each val in ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00']
+            if val==event.start_time
+              option(value=val selected)= val
+            else
+              option(value=val)= val
+        .form-check
+          label.form-check-label
+            if(event.start_am)
+              input.form-check-input(type='radio' name='start_am' checked) 
+              | am &nbsp;&nbsp;
+            else
+              input.form-check-input(type='radio' name='start_am') 
+              | am &nbsp;&nbsp;
+          label.form-chech-input 
+            if(event.start_pm)
+              input.form-check-input(type='radio' name='start_pm' checked) 
+              | pm
+            else
+              input.form-check-input(type='radio' name='start_pm') 
+              | pm
+      .form-group
+        label(for='ends') ENDS
+        input#ends.form-control.col-lg-3(type='date' name='end_date' title='YYYY-MM-DD 형식으로 작성해주세요' value= moment(event.end_date).format('YYYY-MM-DD'))
+        select#end_time.form-control.col-lg-2(name='end_time')
+          each val in ['01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00']
+            if val==event.end_time
+              option(value=val selected)= val
+            else
+              option(value=val)= val
+        .form-check
+          label.form-check-label
+            if(event.start_am)
+              input.form-check-input(type='radio' name='end_am' checked) 
+              | am &nbsp;&nbsp;
+            else
+              input.form-check-input(type='radio' name='end_am') 
+              | am &nbsp;&nbsp;
+          label.form-chech-input 
+            if(event.start_pm)
+              input.form-check-input(type='radio' name='end_pm' checked) 
+              | pm
+            else
+              input.form-check-input(type='radio' name='end_pm' ) 
+              | pm
+      //- .form-group
+      //-   label(for='event-image') EVENT IMAGE
+      //-   form(method='post' enctype='multipart/form-data')
+      //-     input.form-control-file(type='file' accept='image/*')
+      .form-group
+        label(for='event-description') EVENT DESCRIPTION
+        textarea#mytextarea.form-control(rows='7' name='event_description')= event.event_description
+      .form-group
+        label(for='event-organizer') ORGANIZER NAME
+        input#organizer.form-control(type='text' name='organizer' placeholder="Who's organizing this event?" value=event.organizer)
+      .form-group
+        label(for='event-organizer-description') ORGANIZER DESCRIPTION
+        textarea#organizer_description.form-control(rows='1' name='organizer_description')= event.organizer_description
+      
+      p.edit-title Create Tickets
+        p.ticket-price What type of ticket would you like to start with?
+      .event-input.event-price-button
+        button.btn.btn-outline-primary.btn-free(type='button' name='free') + FREE TICKET
+        button.btn.btn-outline-primary.btn-paid(type='button' name='paid') + PAID TICKET
+        table#free-table.table.table-responsive
+          thead
+            tr
+              th Ticket name
+              th Quantity available
+              th Price
+          tbody
+            tr
+              td
+                input.free_ticket_name(type='text', name='ticket_name', placeholder='Ticket name', value=event.ticket_name)
+              td
+                input.free_ticket_num(type='text', name='ticket_quantity' placeholder='Quantity available' value=event.ticket_quantity)
+              td free
+        table#paid-table.table.table-responsive
+          thead
+            tr
+              th Ticket name
+              th Quantity available
+              th Price
+          tbody
+            tr
+              td
+                input.paid_ticket_name(type='text', name='ticket_name', placeholder='Ticket name' value= event.ticket_name)
+              td
+                input.paid_ticket_num(type='text', name='ticket_quantity' placeholder='Quantity available' value=event.ticket_quantity)
+              td 
+                input.paid_ticket_price(type='text', name='ticket_price' placeholder='Price' value=event.ticket_price)
+      p.edit-title Additional Setting
+      .form-group
+        label(for='event-type') EVENT TYPE
+        select.form-control(name='event_type')
+          option(value='' selected disabled) Select the type of event
+          each val in ['Concert or performance', 'Conference', 'Festival or fair', 'Tour', 'Other']
+            if val==event.event_type
+              option(value=val selected)= val
+            else
+              option(value=val)= val
+      .form-group
+        label(for='event-topic') EVENT TOPIC
+        select.form-control.col-lg-3(name='event_topic')
+          option(value='' selected disabled) Select a topic
+          each val in ['Business & Professional', 'Music', 'Science & Technology', 'Travel & Outdoor', 'Religion & Spirituality', 'Other']
+            if val==event.event_topic
+              option(value=val selected)= val
+            else
+              option(value=val)= val
+      br
+      br
+      button#submitBtn.btn.btn-primary(type="submit") Update Your Event
+        
+  script#daum_map(type="text/template")
+    script(type="text/javascript", src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5161517a9e126daa813c4fc2ef4904ce&libraries=services")
+    script
+      |var mapContainer = document.getElementById('map');
+      |var mapOption = {center: new daum.maps.LatLng(37.566826, 126.9786567),level: 5};  
+      |var map = new daum.maps.Map(mapContainer, mapOption); 
+      |var geocoder = new daum.maps.services.Geocoder();
+      |geocoder.addressSearch($('#location').val(), function(result, status) {
+      |  if (status === daum.maps.services.Status.OK) {
+      |    var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+      |    var marker = new daum.maps.Marker({
+      |      map: map,
+      |      position: coords
+      |    });
+      |    var infowindow = new daum.maps.InfoWindow({
+      |      content: '<div style="width:150px;text-align:center;padding:6px 0;">현재 장소</div>'
+      |    });
+      |    infowindow.open(map, marker);
+      |    map.setCenter(coords);
+      |  } 
+      |});  
+      |var marker = new daum.maps.Marker(); 
+      |var infowindow = new daum.maps.InfoWindow({zindex:1}); 
+      |searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+      |daum.maps.event.addListener(map, 'click', function(mouseEvent) {
+      |  searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+      |      if (status === daum.maps.services.Status.OK) {
+      |          if(!!result[0].road_address){var detailAddr = '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>'; $('#location').val(result[0].road_address.address_name);}
+      |          else {var detailAddr = '<div>지번 주소 : ' + result[0].address.address_name + '</div>';$('#location').val(result[0].address.address_name);}         
+      |          var content = '<div class="bAddr">' + detailAddr + '</div>';
+      |          marker.setPosition(mouseEvent.latLng);
+      |          marker.setMap(map);
+      |          infowindow.setContent(content);
+      |          infowindow.open(map, marker);
+      |      }   
+      |  });
+      |});
+      |daum.maps.event.addListener(map, 'idle', function() {
+      |  searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+      |});
+      |function searchAddrFromCoords(coords, callback) {
+      |  geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+      |}
+      |function searchDetailAddrFromCoords(coords, callback) {
+      |  geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+      |}
+      |function displayCenterInfo(result, status) {
+      |  if (status === daum.maps.services.Status.OK) {
+      |      var infoDiv = document.getElementById('centerAddr');
+      |      infoDiv.innerHTML = result[0].address_name;
+      |  }    
+      |}
+            
+            
+  //- script#free-form(type="text/template")
+  //-   table#free-table.table.table-responsive
+  //-     thead
+  //-       tr
+  //-         th Ticket name
+  //-         th Quantity available
+  //-         th Price
+  //-     tbody
+  //-       tr
+  //-         td
+  //-           input.free_ticket_name(type='text', name='ticket_name', placeholder='Ticket name', value=event.ticket_name)
+  //-         td
+  //-           input.free_ticket_num(type='text', name='ticket_quantity' placeholder='Quantity available' value=event.ticket_quantity)
+  //-         td free
+  //- 
+  //- script#paid-form(type="text/template")
+  //-   table#paid-table.table.table-responsive
+  //-     thead
+  //-       tr
+  //-         th Ticket name
+  //-         th Quantity available
+  //-         th Price
+  //-     tbody
+  //-       tr
+  //-         td
+  //-           input.paid_ticket_name(type='text', name='ticket_name', placeholder='Ticket name' value= event.ticket_name)
+  //-         td
+  //-           input.paid_ticket_num(type='text', name='ticket_quantity' placeholder='Quantity available' value=event.ticket_quantity)
+  //-         td 
+  //-           input.paid_ticket_price(type='text', name='ticket_price' placeholder='Price' value=event.ticket_price)
+  //- 

@@ -1,0 +1,98 @@
+div.editEvent {
+  margin: 0 10% 0 10%;
+  p.edit-title{
+    font-size: 2.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid gray;
+    font-family: 'Kaushan Script', cursive;
+  }
+
+  .map_wrap{
+    position: relative;
+    width: 25em;
+    height: 25em;
+    .hAddr{
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background:#fff;
+      background:rgba(255,255,255,0.8);
+      z-index:1;
+      padding:5px;
+      #centerAddr{
+        display:block;
+        margin-top:2px;
+        font-weight: normal;
+      }
+    }
+    .bAddr {
+      padding:5px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  .title {
+    margin-top: 1em;
+  }
+
+  input.form-check-input{
+    margin-top: 0.5em;
+  }
+
+  button[name='free'], button[name='paid']{
+    margin: 2% 3% 0 3%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .save{
+    text-align: center;
+    margin-bottom: 5%;
+  }
+
+  #free-table, #paid-table {
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family:Arial, Helvetica, sans-serif;
+    // display: table;
+    th {
+      display: none;
+    }
+    td {
+      text-align: center;
+      display: block;
+    }
+    display: none;
+  }
+}
+@media only screen and (min-device-width:768px) {
+  #free-table, #paid-table {
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    th {
+      text-align: center;
+      border-top:1px solid #fafafa;
+      display: inline;
+    }
+  }
+}
+
+@media only screen and (min-device-width : 1025px){
+  div.editEvent {
+    margin: 0 20% 0 20%;
+  }
+
+  .event-price-button {
+    text-align: center;
+  }
+
+  select[name='start_time'], select[name='end_time'] {
+
+  }
+
+}

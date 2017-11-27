@@ -1,0 +1,19 @@
+.content= event.content
+//- .tags.badges
+//-   each tag in question.tags
+//-     span.badge.badge-phill.badge-secondary= tag
+//-     | 
+.row
+  //- .col-sm
+  //-   .numbers.
+  //-     #[span.number.num-votes= question.numLikes] likes,
+  //-     #[span.number.num-answers= question.numAnswers] answers,
+  //-     #[span.number.num-views= question.numReads] reads
+  .col-sm
+    .author
+      //- | asked on #{moment(event.createdAt).format('YYYY-MM-DD')}
+      if event.organizer
+        | 
+        | by #[a(href=`/users/${event.author.id}`)= event.author.name]  
+        
+        //- populate로 author가 객체가 되어서 위처럼 가능한 것임.

@@ -1,0 +1,64 @@
+extends ../layout
+
+include ../includes/_paginate
+
+block css
+  link(rel='stylesheet' type='text/css' href='/stylesheets/events/index.min.css')
+block script
+  script(type="text/javascript", src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5161517a9e126daa813c4fc2ef4904ce&libraries=services")
+
+block content
+  .container
+    form.form-inline.search-input-group(action='/events', method='GET')
+      i.fa.fa-search
+      |
+      input.form-control.mr-sm-2(type='text', name='term', placeholder='Search', aria-label='Search', value=term)
+
+    p.main-title 
+      | Events
+
+    if events.total <= 0 
+      .alert.alert-info No events available yet
+    else
+      .events
+        if events.total > 0 
+          .small Total #{events.total} event(s)
+          each event in events.docs
+            .card
+              a(href=`/events/${event.id}`)
+                img.card-img-top(src='images/event10.jpg', alt='event_photo')
+                .card-img-overlay
+                  if event.ticket_price == 0 
+                    p.event-price FREE
+                  else 
+                    p.event-price= event.ticket_price
+                .card-body
+                  p.event-date #{moment(event.start_date).format('ddd MMM DD YYYY')}
+                  p.event-name= event.title
+                  p.event-location= event.location
+              ul.list-group.list-group-flush
+                li.list-group-item
+                  a.event-type=event.event_type 
+                  a(href='')
+                    i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+                            
+
+          script
+            |var mapContainer = document.getElementById('map'),
+            |    mapOption = {center: new daum.maps.LatLng(33.450701, 126.570667), level: 3};
+            |var map = new daum.maps.Map(mapContainer, mapOption);
+            |var geocoder = new daum.maps.services.Geocoder();
+            |geocoder.addressSearch(, function(result, status) {
+            |  if (status === daum.maps.services.Status.OK) {
+            |    var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+            |    var marker = new daum.maps.Marker({
+            |      map: map,
+            |      position: coords
+            |    });
+            |    map.setCenter(coords);
+            |  } 
+            |});
+                 
+                    
+            //- +paginate(events, '/events', {query: "???XXX&&"})
+            //- +는 믹스인. 12345이런 페이지 버튼들을 만들어줌. 이것은 _paginate라는 퍼그파일에 정의되어있음.

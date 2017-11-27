@@ -1,0 +1,16 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet' type='text/css' href='/stylesheets/events/question.min.css')
+
+block content
+  p.main-title Question
+  form(action=`/events/${event._id}/question`, method="POST")
+    .form-group
+      label(for='title') 질문 제목
+      input#title.col-5(type='text' name='title')
+    .form-group
+      label(for='contents') 질문 내용
+      textarea.col-5(rows='5' name='contents')
+    .button
+      button#submitBtn.btn.btn-primary(type="submit") 등록
