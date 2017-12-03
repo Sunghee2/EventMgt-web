@@ -1,0 +1,16 @@
+extends ../layout
+
+block css
+  link(rel='stylesheet' type='text/css' href='/stylesheets/events/review.min.css')
+
+block content
+  p.main-title Review
+  form(action=`/events/${event._id}/review`, method="POST")
+    .form-group
+      label(for='title') 제목
+      input#title.col-5(type='text' name='title')
+    .form-group
+      label(for='contents') 후기
+      textarea.col-5(rows='5' name='contents')
+    .button
+      button#submitBtn.btn.btn-primary(type="submit") 등록
