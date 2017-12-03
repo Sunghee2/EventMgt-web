@@ -41,24 +41,5 @@ block content
                   a.event-type=event.event_type 
                   a(href='')
                     i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
-                            
-
-          script
-            |var mapContainer = document.getElementById('map'),
-            |    mapOption = {center: new daum.maps.LatLng(33.450701, 126.570667), level: 3};
-            |var map = new daum.maps.Map(mapContainer, mapOption);
-            |var geocoder = new daum.maps.services.Geocoder();
-            |geocoder.addressSearch(, function(result, status) {
-            |  if (status === daum.maps.services.Status.OK) {
-            |    var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-            |    var marker = new daum.maps.Marker({
-            |      map: map,
-            |      position: coords
-            |    });
-            |    map.setCenter(coords);
-            |  } 
-            |});
-                 
-                    
-            //- +paginate(events, '/events', {query: "???XXX&&"})
-            //- +는 믹스인. 12345이런 페이지 버튼들을 만들어줌. 이것은 _paginate라는 퍼그파일에 정의되어있음.
+                      
+      +paginate(events, '/events', query)

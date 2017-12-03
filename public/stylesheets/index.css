@@ -76,6 +76,7 @@ div.event-list{
 div.card{
   margin-top: 10%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  display: inline-block;
 }
 
 div.card-img-overlay {
@@ -271,6 +272,9 @@ figure.category-img a {
 }
 
 @media only screen and (min-device-width:768px) {
+  div.body {
+    margin: 0 15% 0 15%;
+  }
   hr{
     display: block;
     color: gray;

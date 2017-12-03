@@ -3,6 +3,8 @@ const Event = require('../models/event');
 const Answer = require('../models/answer');
 const Participant = require('../models/participant');
 const Question = require('../models/question');
+const Review = require('../models/review');
+const Favorite = require('../models/favorite');
 const catchErrors = require('../lib/async-error');
 
 const router = express.Router();
@@ -89,9 +91,19 @@ router.get('/', catchErrors(async (req, res, next) => {
 
   var query = {};
   const term = req.query.term;
-  if (term) {
+  const location = req.query.location;
+
+  if (location) {
+    query = {$and: [
+      {title: {'$regex': term, '$options': 'i'}},
+      {location: {'$regex': location, '$options': 'i'}},
+    ]};
+  }
+  else if (term) {
     query = {$or: [
-      {title: {'$regex': term, '$options': 'i'}}
+      {title: {'$regex': term, '$options': 'i'}},
+      {location: {'$regex': term, '$options': 'i'}},
+      {event_topic: {'$regex': term, '$options': 'i'}}
     ]};
   }
   const events = await Event.paginate(query, {
@@ -99,7 +111,7 @@ router.get('/', catchErrors(async (req, res, next) => {
     populate: 'author',
     page: page, limit: limit
   });
-  res.render('events/index', {events: events, term: term});
+  res.render('events/index', {events: events, term: term, query: req.query});
 }));
 
 router.get('/map.json', catchErrors(async(req,res,next)=>{
@@ -132,7 +144,12 @@ router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
 router.get('/:id/question', needAuth, catchErrors(async (req, res, next)=>{
   const event = await Event.findById(req.params.id);
   res.render('events/question', {event: event});
-}))
+}));
+
+router.get('/:id/review', needAuth, catchErrors(async (req, res, next)=>{
+  const event = await Event.findById(req.params.id);
+  res.render('events/review', {event: event});
+}));
 
 router.get('/:id.json', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
@@ -145,9 +162,10 @@ router.get('/:id', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id).populate('author');
   const participants = await Participant.find({event: event.id}).populate('participant');
   const questions = await Question.find({event: event.id}).populate('author');
+  const reviews = await Review.find({event: event.id}).populate('author');
 
   await event.save();
-  res.render('events/show', {event: event, participants: participants, questions: questions});
+  res.render('events/show', {event: event, participants: participants, questions: questions, reviews: reviews});
 }));
 
 router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
@@ -272,6 +290,67 @@ router.post('/:id/:id_question/answers', needAuth, catchErrors(async (req, res, 
 
   req.flash('success', '답변이 등록되었습니다.');
   res.redirect(`/events/${req.params.id}`);
-}))
+}));
+
+router.post('/:id/review', needAuth, catchErrors(async (req, res, next)=>{
+  const user = req.user;
+  const event = await Event.findById(req.params.id);
+  const err = validateQuestionForm(req.body);
+  if (err) {
+    req.flash('danger', err);
+    return res.redirect('back');
+  }
+
+  var review = new Review({
+    author: user._id,
+    event: event._id,
+    title: req.body.title,
+    contents: req.body.contents
+  });
+  await review.save();
+
+  req.flash('success', 'Successfully registered');
+  res.redirect(`/events/${req.params.id}`);
+}));
+
+router.post('/:id/:id_review/answers', needAuth, catchErrors(async (req, res, next)=>{
+  const user = req.user;
+  const event = await Event.findById(req.params.id);
+  const review = await review.findById(req.params.id_review);
+
+
+  review.answer = req.body.answer;
+
+  await review.save();
+
+  req.flash('success', '답변이 등록되었습니다.');
+  res.redirect(`/events/${req.params.id}`);
+}));
+
+// router.post('/:id/favorite', catchErrors(async (req, res, next) => {
+//   console.log('지나감1');
+//   const event = await Event.findById(req.params.id);
+//   if (!event) {
+//     return next({status: 404, msg: 'Not exist event'});
+//   }
+//   console.log('지나감2');
+//   console.log(req.user._id);
+//   console.log(event._id);
+//   var favorite = await Favorite.findOne({author: req.user._id, event: req.params.id});
+//   console.log('지나감3');
+//   if (!favorite) {
+//     Favorite.create({author: req.user._id, event: event._id})
+//   }
+//   console.log('지나감4');
+//   return res.json(event);
+// }));
+
+router.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    status: err.status,
+    msg: err.msg || err
+  });
+});
 
 module.exports = router;

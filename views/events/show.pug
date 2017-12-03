@@ -11,7 +11,7 @@ block content
     .header.row
       .event_description_top.col-9
         a(href='')
-          i.fa.fa-bookmark-o.event-icon(aria-hidden='true')
+          i.fa.fa-bookmark-o.event-icon(aria-hidden='true', data-id=event._id)
         p #{moment(event.start_date).format('dddd, MMMM DD, YYYY')} ~
         p.event_title= event.title
         p.event_organizer= event.organizer
@@ -151,18 +151,49 @@ block content
               if(currentUser && event.author.id != currentUser.id)
                 a.btn.btn-outline-secondary.btn-sm(href=`/events/${event._id}/question`) 질문하기
   
-  
-  
-  script#question(type="text/template").
-    table
-      tr
-        th 질문자 : 
-        td= question.author.name
-        th 작성일 :
-        td= question.questionedAt
-      tr
-        th 제목 :
-        td= question.title
-      tr
-        td= question.contents
-  
+    .reviews
+      .card
+        .card-header REVIEWS
+        .card-body
+          if reviews.total <= 0 
+            .alert.alert-info 등록된 질문이 없습니다.
+          else
+            table.table.table-hover
+              thead
+                tr
+                  th.td-num(scope="col") 번호
+                  th.td-question(scope="col") 후기
+                  th.td-author(scope="col") 작성자
+                  th.td-date(scope="col") 작성일
+              tbody
+                - var num = 1;
+                each review in reviews
+                  tr#review_show1(class= review.id)
+                    th.td-num(scope="row")= num++
+                    td.td-review= review.title
+                    td.td-author= review.author.name
+                    td.td-date= moment(review.createdAt).format('YYYY/MM/DD')
+                  tr.review_show#review_show2(class= review.id, style="display:none")
+                    td(colspan="4")
+                      table
+                        tr
+                          th 질문자 :
+                          td= review.author.name
+                        tr
+                          th 작성일 :
+                          td= moment(review.createdAt).format('YYYY.MM.DD hh:mm:ss')
+                        tr
+                          th 제목 :
+                          td= review.title
+                        tr
+                          th 질문 :
+                          td= review.contents
+                      if(review.answer)
+                        p= '답변 : ' + review.answer
+                      if(currentUser && event.author.id == currentUser.id)
+                        form(action=`/events/${event._id}/${review._id}/answers`, method='POST')
+                          .form-group
+                            textarea.form-control(name="answer", rows="2")
+                          button.btn.btn-primary(type="submit") Post Your Answer
+              if(currentUser && event.author.id != currentUser.id)
+                a.btn.btn-outline-secondary.btn-sm(href=`/events/${event._id}/review`) 후기쓰기 

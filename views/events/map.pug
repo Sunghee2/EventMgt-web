@@ -1,7 +1,5 @@
 extends ../layout
 
-include ../includes/_paginate
-
 block css
   link(rel='stylesheet' type='text/css' href='/stylesheets/events/index.min.css')
 block script
@@ -13,7 +11,7 @@ block content
   script.
     $(function() {
       var mapContainer = document.getElementById('map'),
-          mapOption = {center: new daum.maps.LatLng(37.566826, 126.9786567), level: 3};
+          mapOption = {center: new daum.maps.LatLng(37.566826, 126.9786567), level: 4};
       var map = new daum.maps.Map(mapContainer, mapOption);
       $.ajax({
         method: 'GET',
@@ -21,22 +19,34 @@ block content
         success: function(data) {
           var geocoder = new daum.maps.services.Geocoder();
           $("#total_num").text(data.total);
+          
           for(var i in data.docs) {
             var d = data.docs[i];
-            geocoder.addressSearch(d.location, function(result, status) {
+            var title = [];
+            var location = [];
+            var id = [];
+            for(var j = 0; j<=i; j++){
+              title.push(data.docs[j].title);
+              location.push(data.docs[j].location);
+              id.push(data.docs[j]._id);
+            }
+            var num=i;
+            geocoder.addressSearch(location[num], function(result, status) {
               if (status === daum.maps.services.Status.OK) {
                 var coords = new daum.maps.LatLng(result[0].y, result[0].x);
                 var marker = new daum.maps.Marker({
                   map: map,
                   position: coords
                 });
+                var content = '<div style="width:150px;text-align:center;padding:6px 0;">'+title[num]+'</div>'
                 var infowindow = new daum.maps.InfoWindow({
-                  content: '<div style="width:150px;text-align:center;padding:6px 0;"> &{title}; </div>'
+                  content: content
                 });
-                daum.maps.event.addListener(marker, 'click', function(){
-                  infowindow.open(map, marker);
-                  location.replace(`/events/${d._id}`);
-                });
+                infowindow.open(map, marker);
+                //- daum.maps.event.addListener(marker, 'click', function(){
+                //-   location.replace(`/events/${id[num]};`);
+                //- });
+                num--;
               }
             });
           }

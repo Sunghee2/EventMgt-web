@@ -15,24 +15,7 @@
             p.findYourNextExperience Find your next experience
             // 검색엔진
             nav.navbar.navbarSearch
-                form.form-inline
-                    input.form-control.searchInput(type='text', placeholder='Search events or categories', aria-label='Search')
-                    |
-                    input.form-control.search(type='text', placeholder='City or location', value='Seoul, Republic of Korea', onfocus="this.value=''; return true")
-                    |
-                    select.form-control.search
-                        option(selected='', hidden='') All Dates
-                        |
-                        option Today
-                        |
-                        option Tomorrow
-                        |
-                        option This Week
-                        |
-                        option This Weekend
-                        |
-                        option Next Week
-                        |
-                        option Next Weekend
-                    |
+                form.form-inline(action='/events', method='GET')
+                    input.form-control.searchInput(type='text', name='term', placeholder='Search events', aria-label='Search')
+                    input.form-control.search(type='text', name='location', placeholder='City or location', value='Seoul, Republic of Korea', onfocus="this.value=''; return true")
                     button.btn.btn-info.my-2.my-sm-0.search.searchBtn(type='submit') Search

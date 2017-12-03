@@ -76,7 +76,7 @@
     }
 
   }
-  .question{
+  .question, .reviews{
     margin-top: 5%;
     table {
       width: auto;
@@ -100,7 +100,7 @@
       //     overflow: hidden;
       //   }
       // }
-      .question_show {
+      .question_show, .review_show {
         text-align: -webkit-center;
         background-color: #FAFAFA;
         table {
