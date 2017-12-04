@@ -15,7 +15,7 @@ var schema = new Schema({
   end_time: {type: String},
   end_am: {type: Boolean},
   end_pm: {type: Boolean},
-  // 이미지 파일. 태그 만들기
+  img: {type:String},
   event_description: {type: String, trim: true, required: true},
   organizer: {type: String, trim: true, required: true},
   organizer_description: {type: String, trim: true, required: true},

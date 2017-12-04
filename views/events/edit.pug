@@ -92,27 +92,7 @@ block content
       p.edit-title Create Tickets
         p.ticket-price What type of ticket would you like to start with?
       .event-input.event-price-button
-        button.btn.btn-outline-primary.btn-free(type='button' name='free') + FREE TICKET
-        button.btn.btn-outline-primary.btn-paid(type='button' name='paid') + PAID TICKET
-        table#free-table.table.table-responsive
-          thead
-            tr
-              th Ticket name
-              th Quantity available
-              th Price
-          tbody
-            tr
-              td
-                input.free_ticket_name(type='text', name='ticket_name', placeholder='Ticket name', value=event.ticket_name)
-              td
-                input.free_ticket_num(type='text', name='ticket_quantity' placeholder='Quantity available' value=event.ticket_quantity)
-              td free
         table#paid-table.table.table-responsive
-          thead
-            tr
-              th Ticket name
-              th Quantity available
-              th Price
           tbody
             tr
               td

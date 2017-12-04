@@ -183,8 +183,22 @@ router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
   }
 
   event.title = req.body.title;
+  event.location = req.body.location;
+  event.start_date = req.body.start_date;
+  event.start_time = req.body.start_time;
+  event.start_am = req.body.start_am;
+  event.start_pm = req.body.start_pm;
+  event.end_date = req.body.end_date;
+  event.end_time = req.body.end_time;
+  event.end_am = req.body.end_am;
+  event.end_pm = req.body.end_pm;
   event.event_description = req.body.event_description;
-  event.event_type = req.body.event_type.split(" ").map(e => e.trim());
+  event.organizer = req.body.organizer;
+  event.organizer_description = req.body.organizer_description;
+  event.ticket_name = req.body.ticket_name;
+  event.ticket_price = req.body.ticket_price;
+  event.event_type = req.body.event_type;
+  event.event_topic = req.body.event_topic;
 
   await event.save();
   req.flash('success', 'Successfully updated');

@@ -59,14 +59,14 @@ div.editEvent {
     margin-right: auto;
     font-family:Arial, Helvetica, sans-serif;
     // display: table;
-    th {
-      display: none;
-    }
+    // th {
+    //   display: none;
+    // }
     td {
       text-align: center;
       display: block;
     }
-    display: none;
+    // display: none;
   }
 }
 @media only screen and (min-device-width:768px) {

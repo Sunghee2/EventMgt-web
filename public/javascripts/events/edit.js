@@ -4,33 +4,21 @@ $(function(){
   //   $('#map').css('display','block');
   // })
 
-  $('.btn-free').click(function(){
-    $('.event-price-button > .btn-free').css('display', 'none');
-    $('.event-price-button > .btn-paid').css('display', 'inline');
-    $('.table').css('diaplay', 'inline');
-    $('#paid-table').css('diaplay', 'none');
-    // $('.event-price-button').append($('#free-form').html());
-    var windowWidth = $(window).width();
-    if(windowWidth < 768){
-      $('.free_ticket_name').attr("placeholder","Ticket name");
-      $('.free_ticket_num').attr("placeholder", "Quantity available");
-    }
-  })
-
-  $('.btn-paid').click(function(){
-    $('.event-price-button > .btn-paid').css('display', 'none');
-    $('.event-price-button > .btn-free').css('display', 'inline');
-    $('#paid-table').css('diaplay', 'inline');
-    $('#free-table').css('diaplay', 'none');
-    // $('.event-price-button').append($('#paid-form').html());
-    var window_width = $(window).width();
-    if(window_width < 768) {
-      $('.paid_ticket_name').attr("placeholder", "Ticket name");
-      $('.paid_ticket_num').attr("placeholder", "Quantity available");
-      $('.paid_ticket_price').attr("placeholder", "Price");
-    }
-
-  })
+  // $('.btn-free').click(function(){
+  //   $('.event-price-button > .btn-free').css('display', 'none');
+  //   $('.event-price-button > .btn-paid').css('display', 'inline');
+  //   $('.free').css('diaplay', 'none');
+  //   $('#paid-table').css('diaplay', 'none');
+  //   // $('.event-price-button').append($('#free-form').html());
+  // });
+  //
+  // $('.btn-paid').click(function(){
+  //   $('.event-price-button > .btn-paid').css('display', 'none');
+  //   $('.event-price-button > .btn-free').css('display', 'inline');
+  //   $('#paid-table').css('diaplay', 'inline');
+  //   $('#free-table').css('diaplay', 'none');
+  //   // $('.event-price-button').append($('#paid-form').html());
+  // });
 
   // function submitEvent(option){
   //   var title = $('#title').val();

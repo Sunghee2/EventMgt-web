@@ -14,7 +14,7 @@ router.use(catchErrors(async (req, res, next) => {
   }
 }));
 
-router.use('/events', require('./events'));
+router.use('/events', require('../events'));
 
 router.post('/events/:id/favorite', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
@@ -31,3 +31,5 @@ router.post('/events/:id/favorite', catchErrors(async (req, res, next) => {
   }
   return res.json(event);
 }));
+
+module.exports = router;

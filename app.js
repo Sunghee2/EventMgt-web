@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+// var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
@@ -14,6 +14,7 @@ var passport = require('passport');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var events = require('./routes/events');
+
 
 var passportConfig = require('./lib/passport-config');
 
@@ -77,7 +78,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/events', events);
 require('./routes/auth')(app, passport);
-// app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/api/index'));
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
