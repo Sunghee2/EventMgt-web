@@ -1,0 +1,29 @@
+extends ../layout
+
+
+block content
+  .container
+    br
+    h1.main-title My favorite
+    br
+    br
+    if(favorite.total <= 0)
+      p 북마크한 이벤트가 없습니다.
+      br
+    else
+      table.table.table-hover
+        thead
+          tr
+            th
+            th Title
+            th Organizer
+        tbody
+          - var num = 1;
+          each f in favorite
+            tr
+              td= num++
+              td= f.event.title
+              td= f.event.organizer
+        
+              
+    
