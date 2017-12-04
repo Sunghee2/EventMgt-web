@@ -1,7 +1,7 @@
 var express = require('express');
-var multer = require('multer');
+// var multer = require('multer');
 const Event = require('../models/event');
-var uploadSetting = multer({dest:"../uploads"});
+// var uploadSetting = multer({dest:"../uploads"});
 const catchErrors = require('../lib/async-error');
 
 var router = express.Router();
