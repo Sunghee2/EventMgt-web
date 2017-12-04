@@ -25,8 +25,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
                       | My Profile
                   .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                       a.dropdown-item(href=`/users/${currentUser._id}`) Account Settings
-                      a.dropdown-item(href='/test') My event
-                      a.dropdown-item(href='#') My favorite
+                      a.dropdown-item(href=`/users/${currentUser._id}/favorite`) My favorite
                       a.dropdown-item(href='/signout') Log out
             if(currentUser && currentUser.isAdmin)
               li.nav-item.active

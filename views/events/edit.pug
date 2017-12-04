@@ -12,8 +12,7 @@ block script
   
 block content
   .editEvent
-    form(action=`/events/${event.id}`, method="POST")
-      input(type="hidden", name="_method", value="PUT")
+    form(action=`/events/${event.id}?_method=PUT`, method="POST")
       p.edit-title Update Event Details
       .form-group
         label(for='title') EVENT TITLE
@@ -38,18 +37,18 @@ block content
               option(value=val)= val
         .form-check
           label.form-check-label
-            if(event.start_am)
-              input.form-check-input(type='radio' name='start_am' checked) 
+            if(event.start_apm=='am')
+              input.form-check-input(type='radio' name='start_apm' value='am' checked) 
               | am &nbsp;&nbsp;
             else
-              input.form-check-input(type='radio' name='start_am') 
+              input.form-check-input(type='radio' name='start_apm' value='am') 
               | am &nbsp;&nbsp;
           label.form-chech-input 
-            if(event.start_pm)
-              input.form-check-input(type='radio' name='start_pm' checked) 
+            if(event.start_apm=='pm')
+              input.form-check-input(type='radio' name='start_apm' value='pm' checked) 
               | pm
             else
-              input.form-check-input(type='radio' name='start_pm') 
+              input.form-check-input(type='radio' name='start_apm' value='pm') 
               | pm
       .form-group
         label(for='ends') ENDS
@@ -62,18 +61,18 @@ block content
               option(value=val)= val
         .form-check
           label.form-check-label
-            if(event.start_am)
-              input.form-check-input(type='radio' name='end_am' checked) 
+            if(event.end_apm=='am')
+              input.form-check-input(type='radio' name='end_apm' value='am' checked) 
               | am &nbsp;&nbsp;
             else
-              input.form-check-input(type='radio' name='end_am') 
+              input.form-check-input(type='radio' name='end_apm' value='am') 
               | am &nbsp;&nbsp;
           label.form-chech-input 
-            if(event.start_pm)
-              input.form-check-input(type='radio' name='end_pm' checked) 
+            if(event.end_apm=='pm')
+              input.form-check-input(type='radio' name='end_apm' value='pm' checked) 
               | pm
             else
-              input.form-check-input(type='radio' name='end_pm' ) 
+              input.form-check-input(type='radio' name='end_apm' value='pm') 
               | pm
       //- .form-group
       //-   label(for='event-image') EVENT IMAGE

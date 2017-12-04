@@ -168,30 +168,25 @@ router.get('/:id', catchErrors(async (req, res, next) => {
   res.render('events/show', {event: event, participants: participants, questions: questions, reviews: reviews});
 }));
 
-router.put('/:id', catchErrors(async (req, res, next) => { // 수정용.
+router.put('/:id', catchErrors(async (req, res, next) => {
   const event = await Event.findById(req.params.id);
-
   if (!event) {
     req.flash('danger', 'Not exist event');
     return res.redirect('back');
   }
-
   const err = validateForm(req.body);
   if (err) {
     req.flash('danger', err);
     return res.redirect('back');
   }
-
   event.title = req.body.title;
   event.location = req.body.location;
   event.start_date = req.body.start_date;
   event.start_time = req.body.start_time;
-  event.start_am = req.body.start_am;
-  event.start_pm = req.body.start_pm;
+  event.start_apm = req.body.start_apm;
   event.end_date = req.body.end_date;
   event.end_time = req.body.end_time;
-  event.end_am = req.body.end_am;
-  event.end_pm = req.body.end_pm;
+  event.end_apm = req.body.end_apm;
   event.event_description = req.body.event_description;
   event.organizer = req.body.organizer;
   event.organizer_description = req.body.organizer_description;
@@ -224,12 +219,10 @@ router.post('/', needAuth, catchErrors(async (req, res, next) => {
     location: req.body.location,
     start_date: req.body.start_date,
     start_time: req.body.start_time,
-    start_am: req.body.start_am,
-    start_pm: req.body.start_pm,
+    start_apm: req.body.start_apm,
     end_date: req.body.end_date,
     end_time: req.body.end_time,
-    end_am: req.body.end_am,
-    end_pm: req.body.end_pm,
+    end_apm: req.body.end_apm,
     event_description: req.body.event_description,
     organizer: req.body.organizer,
     organizer_description: req.body.organizer_description,

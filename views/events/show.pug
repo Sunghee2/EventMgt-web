@@ -10,7 +10,7 @@ block content
   .event_show
     .header.row
       .event_description_top.col-9
-        a(href='')
+        a(href='' onclick="alert('북마크 되었습니다')")
           i.fa.fa-bookmark-o.event-icon(aria-hidden='true', data-id=event._id)
         p #{moment(event.start_date).format('dddd, MMMM DD, YYYY')} ~
         p.event_title= event.title
@@ -63,17 +63,11 @@ block content
             p.card_locaion= event.location
             p.event_date Start: #{moment(event.start_date).format('ddd, MMM DD, YYYY')} at 
             p.event_time= event.start_time
-            if(event.start_am)
-              p.event_time am
-            else
-              p.event_time pm
+            p.event_time= event.start_apm
             br
             p.event_date End: #{moment(event.end_date).format('ddd, MMM DD, YYYY')} at 
             p.event_time= event.end_time
-            if(event.end_am)
-              p.event_time am
-            else
-              p.event_time pm
+            p.event_time= event.end_apm
 
         .card.card-organizer
           .card-header Organizer

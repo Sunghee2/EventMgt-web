@@ -1,5 +1,6 @@
 var express = require('express')
 var User = require('../models/user');
+var Favorite = require('../models/favorite');
 var router = express.Router();
 const catchErrors = require('../lib/async-error');
 
@@ -8,7 +9,7 @@ function needAuth(req, res, next) {
     next();
   } else {
     req.flash('danger', 'Please signin first.');
-    res.redirect('/signin');
+    res.redirect('/');
   }
 }
 
@@ -57,6 +58,12 @@ router.get('/new', (req, res, next) => {
 router.get('/:id/edit', needAuth, catchErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   res.render('users/edit', {user: user});
+}));
+
+router.get('/:id/favorite', needAuth, catchErrors(async(req,res,next) => {
+  const user = await User.findById(req.params.id);
+  const favorite = await Favorite.find({author: user._id}).populate('event');
+  res.render('users/favorite', {favorite: favorite});
 }));
 
 router.put('/:id', needAuth, catchErrors(async (req, res, next) => {

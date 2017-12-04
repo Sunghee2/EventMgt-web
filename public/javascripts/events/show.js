@@ -11,7 +11,7 @@ $(function(){
     method: 'POST',
     dataType: 'json',
     success: function(data) {
-      $('.event-icon').hide();
+      // $('.event-icon').hide();
     },
     error: function(data, status) {
       if (data.status == 401) {
