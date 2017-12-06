@@ -1,0 +1,13 @@
+extends ../layout
+
+block content
+  p.title Reset Password
+  .input
+    form(method='POST')
+        .form-group
+            label(for='password') New Password
+            input#password.form-control(type='password', name='new_password', placeholder='New Password')
+        .form-group
+            label(for='password_confirmation') New Password Confirmation
+            input#password_confirmation.form-control(type='password', name='new_password_confirmation', placeholder='New Password Confirmation')
+        button.btn.btn-primary(type='submit') Update

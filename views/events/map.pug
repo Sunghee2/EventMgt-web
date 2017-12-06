@@ -6,7 +6,6 @@ block script
   script(type="text/javascript", src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5161517a9e126daa813c4fc2ef4904ce&libraries=services")
 
 block content
-  .small Total #[span#total_num] event(s)
   #map(style="width:50em;height:25em;")
   script.
     function showAddressWithTitle(map, doc) {
@@ -32,16 +31,14 @@ block content
     }
     $(function() {
       var mapContainer = document.getElementById('map'),
-          mapOption = {center: new daum.maps.LatLng(37.566826, 126.9786567), level: 4};
+          mapOption = {center: new daum.maps.LatLng(37.566826, 126.9786567), level: 7};
       var map = new daum.maps.Map(mapContainer, mapOption);
       $.ajax({
         method: 'GET',
         url: '/events/map.json',
         success: function(data) {
-          $("#total_num").text(data.total);
-          
-          for(var i in data.docs) {
-            showAddressWithTitle(map, data.docs[i]);
+          for(var i in data) {
+            showAddressWithTitle(map, data[i]);
           }
         }
       });

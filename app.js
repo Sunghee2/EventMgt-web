@@ -8,6 +8,7 @@ var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var methodOverride = require('method-override');
 var flash = require('connect-flash');
+var nodemailer = require('nodemailer');
 var mongoose   = require('mongoose');
 var passport = require('passport');
 

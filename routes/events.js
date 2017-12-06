@@ -87,19 +87,12 @@ function validateQuestionForm(form, options){
 
 router.get('/', catchErrors(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
+  const limit = parseInt(req.query.limit) || 8;
 
   var query = {};
   const term = req.query.term;
-  const location = req.query.location;
 
-  if (location) {
-    query = {$and: [
-      {title: {'$regex': term, '$options': 'i'}},
-      {location: {'$regex': location, '$options': 'i'}},
-    ]};
-  }
-  else if (term) {
+  if (term) {
     query = {$or: [
       {title: {'$regex': term, '$options': 'i'}},
       {location: {'$regex': term, '$options': 'i'}},
@@ -115,20 +108,12 @@ router.get('/', catchErrors(async (req, res, next) => {
 }));
 
 router.get('/map.json', catchErrors(async(req,res,next)=>{
-  var query = {};
-  const events = await Event.paginate(query, {
-    sort: {createdAt: -1},
-    populate: 'author',
-  });
+  const events = await Event.find();
   res.json(events);
 }));
 
 router.get('/map', catchErrors(async(req,res,next)=>{
-  var query = {};
-  const events = await Event.paginate(query, {
-    sort: {createdAt: -1},
-    populate: 'author',
-  });
+  const events = await Event.find();
   res.render('events/map',{events: events});
 }));
 

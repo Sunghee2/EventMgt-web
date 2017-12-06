@@ -13,7 +13,7 @@ block content
               i.fa.fa-times-circle-o(aria-hidden='true')
       input.form-control.event-location-input(type='text', placeholder='Enter city or location', value='Seoul, Republic of Korea')
     
-      each event in events.docs
+      each event in events
         .card(style='width:20em;')
           a(href=`/events/${event.id}`)
             img.card-img-top(src='images/event10.jpg', alt='event_photo')
