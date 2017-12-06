@@ -97,7 +97,7 @@ router.put('/:id', needAuth, catchErrors(async (req, res, next) => {
 router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
   const user = await User.findOneAndRemove({_id: req.params.id});
   req.flash('success', 'Deleted Successfully.');
-  res.redirect('/users');
+  res.redirect('/');
 }));
 
 router.get('/:id', catchErrors(async (req, res, next) => {
