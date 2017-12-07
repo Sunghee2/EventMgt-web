@@ -1,9 +1,9 @@
 p.create-title Event Details
 .form-group
-  label(for='title') EVENT TITLE
+  label(for='title') EVENT TITLE *
   input#title.form-control(type='text' name='title' placeholder='Give it a short distinct name')
 .form-group
-  label(for='location') LOCATION 
+  label(for='location') LOCATION *
   input#location.form-control(type='text' name='location' placeholder="Specify where it's held")
   //- p.location_map &nbsp;&nbsp;&nbsp;지도로 보기
   br
@@ -12,7 +12,7 @@ p.create-title Event Details
     .hAddr
       span#centerAddr
 .form-group
-  label(for='starts') STARTS
+  label(for='starts') STARTS *
   input#starts.form-control.col-lg-3(type='date' name='start_date' title='YYYY-MM-DD 형식으로 작성해주세요')
   select#start_time.form-control.col-lg-2(name='start_time')
     option(value='01:00') 01:00  
@@ -35,7 +35,7 @@ p.create-title Event Details
       input.form-check-input(type='radio' name='start_apm' value='pm') 
       | pm
 .form-group
-  label(for='ends') ENDS
+  label(for='ends') ENDS *
   input#ends.form-control.col-lg-3(type='date' name='end_date')
   select#end_time.form-control.col-lg-2(name='end_time')
     option(value='01:00') 01:00  
@@ -62,13 +62,13 @@ p.create-title Event Details
 //-   form(method='post' enctype='multipart/form-data')
 //-     input.form-control-file(type='file' accept='image/*')
 .form-group
-  label(for='event-description') EVENT DESCRIPTION
+  label(for='event-description') EVENT DESCRIPTION *
   textarea#mytextarea.form-control(rows='7' name='event_description')
 .form-group
-  label(for='event-organizer') ORGANIZER NAME
+  label(for='event-organizer') ORGANIZER NAME *
   input#organizer.form-control(type='text' name='organizer' placeholder="Who's organizing this event?")
 .form-group
-  label(for='event-organizer-description') ORGANIZER DESCRIPTION
+  label(for='event-organizer-description') ORGANIZER DESCRIPTION *
   textarea#organizer_description.form-control(rows='1' name='organizer_description')
 
 p.create-title Create Tickets

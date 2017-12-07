@@ -22,7 +22,11 @@ function validateForm(form, options) {
   var title = form.title || "";
   var location = form.location || "";
   var start_date = form.start_date || "";
+  var start_time = form.start_time || "";
+  var start_apm = form.start_apm || "";
   var end_date = form.end_date || "";
+  var end_time = form.end_time || "";
+  var end_apm = form.end_apm || "";
   var event_description = form.event_description || "";
   var organizer = form.organizer || "";
   var organizer_description = form.organizer_description || "";
@@ -45,8 +49,24 @@ function validateForm(form, options) {
     return 'Start date is required.';
   }
 
+  if(!start_time){
+    return 'Start time is required.';
+  }
+
+  if(!start_apm) {
+    return 'Start time is required.';
+  }
+
   if (!end_date) {
     return 'End date is required.';
+  }
+
+  if(!end_time) {
+    return 'End time is required.';
+  }
+
+  if(!end_apm) {
+    return 'End time is required.';
   }
 
   if (!event_description) {
