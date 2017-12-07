@@ -79,19 +79,16 @@ router.put('/:id', needAuth, catchErrors(async (req, res, next) => {
     return res.redirect('back');
   }
 
-  if (!await user.validatePassword(req.body.current_password)) {
+  if (!await user.validatePassword(req.body.password)) {
     req.flash('danger', 'Current password invalid.');
     return res.redirect('back');
   }
 
   user.name = req.body.name;
   user.email = req.body.email;
-  if (req.body.password) {
-    user.password = await user.generateHash(req.body.password);
-  }
   await user.save();
   req.flash('success', 'Updated successfully.');
-  res.redirect('/users');
+  res.redirect('/');
 }));
 
 router.delete('/:id', needAuth, catchErrors(async (req, res, next) => {
