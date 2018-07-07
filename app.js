@@ -31,7 +31,7 @@ app.locals.moment = require('moment');
 app.locals.querystring = require('querystring');
 
 mongoose.Promise = global.Promise;
-const connStr = 'mongodb://dbuser:dblab@ds159235.mlab.com:59235/event_project';
+const connStr = '<your-connect-string>';
 mongoose.connect(connStr, {useMongoClient: true });
 mongoose.connection.on('error', console.error);
 

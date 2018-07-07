@@ -102,8 +102,8 @@ router.post('/resetPassword', function(req, res, next){
    function(token, user, done) {
      var auth = {
        auth: {
-         api_key: 'key-239b83cceabc4d34e44eee9c9cf61168',
-         domain: 'sandbox205921ec52164a688e49e9d6a93f4336.mailgun.org'
+         api_key: '<your-api-key>',
+         domain: '<your-domain>'
       }
      }
      var nodemailerMailgun = nodemailer.createTransport(mg(auth));
