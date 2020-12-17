@@ -1,7 +1,5 @@
 # eventMgt_web
 
-https://hidden-hamlet-34878.herokuapp.com/ 
-
 ## Table of Contents
 
 1. [개발 환경](#개발-환경)
@@ -57,8 +55,6 @@ $ npm start
 
 
 ## Screenshots
-
-https://hidden-hamlet-34878.herokuapp.com/ 
 
 ![example](./screenshots/sample.gif)
 
